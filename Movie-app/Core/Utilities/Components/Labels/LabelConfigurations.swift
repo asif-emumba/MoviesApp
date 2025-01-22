@@ -37,3 +37,14 @@ struct UpcomingMovieHeaderLabelConfiguration: LabelConfigurable {
     var font: UIFont { .systemFont(ofSize: 24, weight: .bold) }
 }
 
+struct UpComingMovieNameLabelConfiguration: LabelConfigurable {
+    var font: UIFont { .systemFont(ofSize: 16, weight: .bold) }
+    var textColor: UIColor { CustomColors.yellowColor ?? .white }
+    var textAlignment: NSTextAlignment { .left }
+}
+
+struct UpComingMovieLabelConfigurations: LabelConfigurable {
+    var font: UIFont { .systemFont(ofSize: 12, weight: .regular) }
+    var textColor: UIColor { CustomColors.textColor ?? .white }
+    var textAlignment: NSTextAlignment { .left }
+}

@@ -43,11 +43,12 @@ extension HomeViewController {
     private func configureCollectionView() {
         view.addSubview(collectionView)
         collectionView.register(UserInfoCollectionViewCell.self, forCellWithReuseIdentifier: UserInfoCollectionViewCell.identifier)
-        collectionView.register(MoviesSectionHeaderView.self,
+        collectionView.register(MovieHeaderCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: MoviesSectionHeaderView.reuseIdentifier)
-        collectionView.register(MoviesSectionCell.self, forCellWithReuseIdentifier: MoviesSectionCell.identifier)
+                                withReuseIdentifier: MovieHeaderCollectionReusableView.reuseIdentifier)
+        collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
         collectionView.register(LoadingIndicatorCell.self, forCellWithReuseIdentifier: LoadingIndicatorCell.identifier)
+        collectionView.register(UpComingMovieCollectionViewCell.self, forCellWithReuseIdentifier: UpComingMovieCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         
@@ -63,6 +64,7 @@ extension HomeViewController {
         viewModel.delegate = self
         viewModel.movieCellDelegate = self
         viewModel.fetchMoviesByCategory(category: .nowPlaying)
+        viewModel.fetchMoviesByCategory(category: .upcoming)
     }
 }
 
@@ -82,7 +84,7 @@ extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = viewModel.sections[indexPath.section]
-        if section.items[indexPath.item] is LoadingCellItem {
+        if section.items[indexPath.item] is LoadingSectionCellItem {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingIndicatorCell.identifier, for: indexPath) as! LoadingIndicatorCell
             cell.activityIndicator.startAnimating()
             return cell
@@ -100,12 +102,12 @@ extension HomeViewController: UICollectionViewDataSource {
         
         let header = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
-            withReuseIdentifier: MoviesSectionHeaderView.reuseIdentifier,
+            withReuseIdentifier: MovieHeaderCollectionReusableView.reuseIdentifier,
             for: indexPath
-        ) as! MoviesSectionHeaderView
+        ) as! MovieHeaderCollectionReusableView
         
-        let section = viewModel.sections[indexPath.section] as? MoviesSection
-        header.configure(with: section?.headerTitle ?? "")
+        let section = viewModel.sections[indexPath.section]
+        header.configure(with: section.headerTitle ?? "")
         return header
     }
 
@@ -113,7 +115,7 @@ extension HomeViewController: UICollectionViewDataSource {
 
     //AllMovie Section Movie Tapped
 extension HomeViewController: MovieCollectionViewCellItemDelegate {
-    func MovieCollectionViewCellItemDidSelect(cell: MoviesSectionCell, cellItem: MoviesCellItem) {
+    func movieCollectionViewCellItemDidSelect(cell: MovieCollectionViewCell, cellItem: MovieSectionCellItem) {
         print("Movie section item tap goes here")
     }
 }

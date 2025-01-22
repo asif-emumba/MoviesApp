@@ -14,9 +14,11 @@ protocol MovieHomeControllerViewModelDelegate: AnyObject {
 class HomeViewModel {
     var sections: [CollectionViewSection] = []
     var nowPlayingMovies: [MovieDetails] = []
+    var upcomingMovies: [MovieDetails] = []
     
     weak var delegate: MovieHomeControllerViewModelDelegate?
     weak var movieCellDelegate: MovieCollectionViewCellItemDelegate?
+    weak var upComingCellDelegate: UpComingMovieCollectionViewCellItemDelegate?
 
         // MARK: - Fetch Movies from api
     private func fetchMovies(from endpoint: EndPoints, completion: @escaping ([Movies]?, Error?) -> Void) {
@@ -54,8 +56,9 @@ class HomeViewModel {
         }
     }
     
-        // MARK: - Async Fetch Movies first then asign the movies id to fethc its details
-    func fetchMoviesAsync(from endpoint: EndPoints) async throws -> [MovieDetails] {
+        // MARK: - Async Fetch Movies and Assign Details to the Appropriate Category
+    func fetchMoviesAsync(from endpoint: EndPoints, category: inout [MovieDetails]) async throws -> [MovieDetails] {
+            // Fetch the movies from the endpoint
         let movies = try await withCheckedThrowingContinuation { continuation in
             fetchMovies(from: endpoint) { movies, error in
                 if let movies = movies {
@@ -68,6 +71,7 @@ class HomeViewModel {
             }
         }
         
+            // Fetch details for each movie and append to the specified category if not already present
         for movie in movies {
             let movieDetails = try await withCheckedThrowingContinuation { continuation in
                 fetchMovieDetails(movieId: movie.id) { details, error in
@@ -81,25 +85,23 @@ class HomeViewModel {
                 }
             }
             
-            if !nowPlayingMovies.contains(where: { $0.id == movieDetails.id }) {
-                nowPlayingMovies.append(movieDetails)
+            if !category.contains(where: { $0.id == movieDetails.id }) {
+                category.append(movieDetails)
             }
         }
-        
-        return nowPlayingMovies
+        return category
     }
-    
     
     func fetchMoviesByCategory(category: MovieCategoryName) {
         Task { @MainActor in
             do {
                 switch category {
                     case .nowPlaying:
-                        nowPlayingMovies = try await fetchMoviesAsync(from: .nowPlaying)
+                        nowPlayingMovies = try await fetchMoviesAsync(from: .nowPlaying, category: &nowPlayingMovies)
                     case .upcoming:
-                        print("Fetching upcoming movies (not implemented)")
+                        upcomingMovies = try await fetchMoviesAsync(from: .upcoming, category: &upcomingMovies)
                 }
-                populateSections(with: nowPlayingMovies)
+                populateSections(with: nowPlayingMovies, upComingMovies: upcomingMovies)
                 delegate?.reloadMovieData()
             } catch {
                 print("Failed to fetch movies for category \(category): \(error)")
@@ -108,13 +110,17 @@ class HomeViewModel {
     }
     
             // MARK: - Populate Sections
-    private func populateSections(with movies: [MovieDetails]) {
+    private func populateSections(with movies: [MovieDetails], upComingMovies: [MovieDetails]) {
         let userGreeting = "Hi, Angelina 👋"
         sections = [
             UserInfoSection(headerTitle: "", items: [UserInfoSectionCellItem(item: userGreeting)]),
             MoviesSection(
                 headerTitle: "Now playing",
-                items: movies.map { MoviesCellItem(item: $0, delegate: movieCellDelegate) }
+                items: movies.map { MovieSectionCellItem(item: $0, delegate: movieCellDelegate) }
+            ),
+            UpComingMovieSection(
+                headerTitle: "Coming soon",
+                items: upComingMovies.map{ UpComingMovieSectionCellItem(item: $0, delegate: upComingCellDelegate) }
             )
         ]
         delegate?.reloadMovieData()

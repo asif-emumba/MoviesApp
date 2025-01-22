@@ -33,7 +33,7 @@ final class MovieSectionCellItem: CollectionViewCellItem {
     
 }
 
-extension MovieSectionCellItem: MoviesSectionCellDelegate {
+extension MovieSectionCellItem: MovieCollectionViewCellDelegate {
     func movieCollectionViewCellDidSelect(cell: MovieCollectionViewCell) {
         delegate?.movieCollectionViewCellItemDidSelect(cell: cell, cellItem: self)
     }

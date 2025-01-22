@@ -9,8 +9,10 @@ import Foundation
 import UIKit
 
 final class MoviesSection: CollectionViewSection {
+    
     var headerTitle: String?
     var items: [CollectionViewCellItem]
+    
     init(headerTitle: String, items: [CollectionViewCellItem]) {
         self.items = items
         self.headerTitle = headerTitle
@@ -23,7 +25,7 @@ final class MoviesSection: CollectionViewSection {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
             // Define the group size for the horizontal scrollable category buttons
         let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(700),
-                                               heightDimension: .absolute(250))
+                                               heightDimension: .absolute(548))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             // Define the section and its boundary supplementary items
         let section = NSCollectionLayoutSection(group: group)
@@ -33,7 +35,7 @@ final class MoviesSection: CollectionViewSection {
             // Add a header to the section
         if headerTitle != nil {
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                    heightDimension: .absolute(50))
+                                                    heightDimension: .absolute(47))
             let header = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: headerSize,
                 elementKind: UICollectionView.elementKindSectionHeader,
@@ -43,4 +45,5 @@ final class MoviesSection: CollectionViewSection {
         }
         return section
     }
+    
 }

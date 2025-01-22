@@ -57,6 +57,9 @@ extension HomeViewController {
         collectionView.register(UserInfoCollectionViewCell.self, forCellWithReuseIdentifier: UserInfoCollectionViewCell.identifier)
         collectionView.register(MovieHeaderCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: MoviesSectionHeaderView.reuseIdentifier)
+        collectionView.register(NowPlayingMoviesCollectionViewCell.self, forCellWithReuseIdentifier: NowPlayingMoviesCollectionViewCell.identifier)
+        collectionView.register(LoadingIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: LoadingIndicatorCollectionViewCell.identifier)
                                 withReuseIdentifier: MovieHeaderCollectionReusableView.reuseIdentifier)
         collectionView.register(NowPlayingMoviesCollectionViewCell.self, forCellWithReuseIdentifier: NowPlayingMoviesCollectionViewCell.identifier)
         collectionView.register(LoadingIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: LoadingIndicatorCollectionViewCell.identifier)
@@ -125,7 +128,6 @@ extension HomeViewController: UICollectionViewDataSource {
         
         let section = viewModel.sections[indexPath.section]
         header.configure(with: section.headerTitle ?? "")
-       
         return header
     }
 

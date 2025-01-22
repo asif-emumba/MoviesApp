@@ -1,5 +1,5 @@
 //
-//  MovieCell.swift
+//  NowPlayingMoviesCollectionViewCell.swift
 //  Movie-app
 //
 //  Created by Asif-emumba on 19/01/2025.
@@ -8,10 +8,10 @@
 import UIKit
 
 protocol MoviesSectionCellDelegate: AnyObject {
-    func MovieCollectionViewCellDidSelect(cell: MoviesSectionCell)
+    func movieCollectionViewCellDidSelect(cell: NowPlayingMoviesCollectionViewCell)
 }
 
-class MoviesSectionCell: UICollectionViewCell {
+class NowPlayingMoviesCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "MoviesSectionCell"
     weak var delegate: MoviesSectionCellDelegate?
@@ -27,7 +27,7 @@ class MoviesSectionCell: UICollectionViewCell {
     }()
     
     private let starIcon: UIImageView = {
-        let imageView = UIImageView(image: Assets.Icons.IcStar)
+        let imageView = UIImageView(image: Assets.Icons.icStar)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -98,14 +98,14 @@ class MoviesSectionCell: UICollectionViewCell {
         if let posterURL = movie.posterURL {
             posterImage.loadImage(from: posterURL.absoluteString)
         }
-            // Calculate hours and minutes
+        // Calculate hours and minutes
         let hours = movie.runtime / 60
         let minutes = movie.runtime % 60
         let formattedRuntime = "\(hours)h\(minutes)m"
-            // Format runtime and genres
+        // Format runtime and genres
         let genreNames = movie.genres.map { $0.name }.joined(separator: ", ")
         movieInfoLabel.text = "\(formattedRuntime) • \(genreNames)"
-            // Configure other labels
+        // Configure other labels
         movieName.text = movie.title
         movieRatingLabel.text = String(format: "%.1f", movie.voteAverage)
     }
@@ -116,8 +116,9 @@ class MoviesSectionCell: UICollectionViewCell {
     }
     
     @objc private func posterImageViewTapped() {
-        delegate?.MovieCollectionViewCellDidSelect(cell: self)
+        delegate?.movieCollectionViewCellDidSelect(cell: self)
     }
+    
 }
 
 

@@ -12,6 +12,7 @@ final class UserInfoSection: CollectionViewSection {
     
     var headerTitle: String?
     var items: [CollectionViewCellItem]
+    
     init(headerTitle: String, items: [CollectionViewCellItem]) {
         self.items = items
         self.headerTitle = headerTitle

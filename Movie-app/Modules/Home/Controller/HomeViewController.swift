@@ -8,8 +8,9 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    weak var coordinator: MainCoordinator?
-    private let viewModel = HomeViewModel()
+    
+    private let coordinator: MainCoordinator
+    private let viewModel : HomeViewModel
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: getCollectionViewLayout())
         collectionView.showsVerticalScrollIndicator = true
@@ -42,9 +43,11 @@ class HomeViewController: UIViewController {
             self.viewModel.sections[sectionIndex].layoutSection
         }
     }
+    
 }
 
 extension HomeViewController {
+    
     private func configureUI() {
         view.backgroundColor = CustomColors.backgroundColor
         configureCollectionView()
@@ -55,6 +58,9 @@ extension HomeViewController {
         collectionView.register(UserInfoCollectionViewCell.self, forCellWithReuseIdentifier: UserInfoCollectionViewCell.identifier)
         collectionView.register(MovieHeaderCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: MoviesSectionHeaderView.reuseIdentifier)
+        collectionView.register(NowPlayingMoviesCollectionViewCell.self, forCellWithReuseIdentifier: NowPlayingMoviesCollectionViewCell.identifier)
+        collectionView.register(LoadingIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: LoadingIndicatorCollectionViewCell.identifier)
                                 withReuseIdentifier: MovieHeaderCollectionReusableView.reuseIdentifier)
         collectionView.register(NowPlayingMoviesCollectionViewCell.self, forCellWithReuseIdentifier: NowPlayingMoviesCollectionViewCell.identifier)
         collectionView.register(LoadingIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: LoadingIndicatorCollectionViewCell.identifier)
@@ -79,6 +85,7 @@ extension HomeViewController {
         viewModel.fetchMoviesByCategory(category: .nowPlaying)
         viewModel.fetchMoviesByCategory(category: .upcoming)
     }
+    
 }
 
 // MARK: - UICollectionViewDelegate
@@ -121,7 +128,6 @@ extension HomeViewController: UICollectionViewDataSource {
         
         let section = viewModel.sections[indexPath.section]
         header.configure(with: section.headerTitle ?? "")
-       
         return header
     }
 

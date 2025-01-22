@@ -7,7 +7,7 @@
 
 import Foundation
 
-    // MARK: - Welcome
+// MARK: - MoviesResponse
 struct MoviesResponse: Codable {
         let page: Int
     let results: [Movies]
@@ -19,7 +19,7 @@ struct MoviesResponse: Codable {
         case totalResults = "total_results"
     }
 }
-    // MARK: - Result
+// MARK: - Movies
 struct Movies: Codable {
     let adult: Bool
     let backdropPath: String
@@ -32,7 +32,7 @@ struct Movies: Codable {
     let voteAverage: Double 
     let voteCount: Int
     var posterURL: URL? {
-        return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
+        return URL(string: "\(APIConstants.imageBaseUrl)/w500\(posterPath)")
     }
     
     enum CodingKeys: String, CodingKey {

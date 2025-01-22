@@ -9,10 +9,10 @@ import Foundation
 import UIKit
 
 protocol MovieCollectionViewCellItemDelegate: AnyObject {
-    func MovieCollectionViewCellItemDidSelect(cell: MoviesSectionCell, cellItem: MoviesCellItem)
+    func movieCollectionViewCellItemDidSelect(cell: MovieCollectionViewCell, cellItem: MovieSectionCellItem)
 }
 
-final class MoviesCellItem: CollectionViewCellItem {
+final class MovieSectionCellItem: CollectionViewCellItem {
     
     let item: MovieDetails
     weak var delegate: MovieCollectionViewCellItemDelegate? = nil
@@ -23,7 +23,7 @@ final class MoviesCellItem: CollectionViewCellItem {
     }
     
     func cellForItem(at indexPath: IndexPath, in collectionView: UICollectionView) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MoviesSectionCell.identifier, for: indexPath) as? MoviesSectionCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionViewCell.identifier, for: indexPath) as? MovieCollectionViewCell else {
             fatalError("Unsupported")
         }
         cell.configure(with: item)
@@ -33,8 +33,8 @@ final class MoviesCellItem: CollectionViewCellItem {
     
 }
 
-extension MoviesCellItem: MoviesSectionCellDelegate {
-    func MovieCollectionViewCellDidSelect(cell: MoviesSectionCell) {
-        delegate?.MovieCollectionViewCellItemDidSelect(cell: cell, cellItem: self)
+extension MovieSectionCellItem: MoviesSectionCellDelegate {
+    func movieCollectionViewCellDidSelect(cell: MovieCollectionViewCell) {
+        delegate?.movieCollectionViewCellItemDidSelect(cell: cell, cellItem: self)
     }
 }

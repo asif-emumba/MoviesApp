@@ -21,6 +21,7 @@ final class UpComingMovieSectionCellItem: CollectionViewCellItem {
         self.item = item
         self.delegate = delegate
     }
+    
     func cellForItem(at indexPath: IndexPath, in collectionView: UICollectionView) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UpComingMovieCollectionViewCell.identifier, for: indexPath) as? UpComingMovieCollectionViewCell else {
             fatalError("Unsupported")
@@ -29,6 +30,7 @@ final class UpComingMovieSectionCellItem: CollectionViewCellItem {
         cell.delegate = self
         return cell
     }
+    
 }
 
 extension UpComingMovieSectionCellItem: UpComingMovieCollectionViewCellDelegate{

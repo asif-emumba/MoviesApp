@@ -19,7 +19,7 @@ class HomeViewModel {
     weak var delegate: MovieHomeControllerViewModelDelegate?
     weak var movieCellDelegate: MovieCollectionViewCellItemDelegate?
     weak var upComingCellDelegate: UpComingMovieCollectionViewCellItemDelegate?
-
+    
         // MARK: - Fetch Movies from api
     private func fetchMovies(from endpoint: EndPoints, completion: @escaping ([Movies]?, Error?) -> Void) {
         let urlString = "\(APIConstants.APIBaseURL)/\(endpoint.rawValue)?api_key=\(APIConstants.apiKey)"
@@ -109,7 +109,7 @@ class HomeViewModel {
         }
     }
     
-            // MARK: - Populate Sections
+        // MARK: - Populate Sections
     private func populateSections(with movies: [MovieDetails], upComingMovies: [MovieDetails]) {
         let userGreeting = "Hi, Angelina 👋"
         sections = [

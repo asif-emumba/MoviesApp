@@ -8,7 +8,8 @@
 import UIKit
 
 class UserInfoCollectionViewCell: UICollectionViewCell {
-    static let identifier = "WelcomeUserCollectionViewCell"
+    
+    static let identifier = "UserInfoCollectionViewCell"
     
     let userNameLabel: UILabel = {
         let label = UILabel()
@@ -17,7 +18,6 @@ class UserInfoCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
     let notificationIcon: UIImageView = {
         let imageView = UIImageView(image: Assets.Icons.IcNotification)
         imageView.tintColor = CustomColors.textColor
@@ -29,7 +29,6 @@ class UserInfoCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 26, weight: .bold)
         label.textColor = CustomColors.textColor
-        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -46,7 +45,6 @@ class UserInfoCollectionViewCell: UICollectionViewCell {
     func configure(with: String) {
         userNameLabel.text = with
         welcomeLabel.text = "Welcome back"
-       
     }
     
     private func configureUi(){
@@ -71,6 +69,6 @@ class UserInfoCollectionViewCell: UICollectionViewCell {
             notificationIcon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             notificationIcon.widthAnchor.constraint(equalToConstant: 36)
         ])
-        
     }
+    
 }

@@ -9,7 +9,7 @@ import Foundation
 
     // MARK: - Welcome
 struct MoviesResponse: Codable {
-        let page: Int
+    let page: Int
     let results: [Movies]
     let totalPages, totalResults: Int
     
@@ -29,7 +29,7 @@ struct Movies: Codable {
     let popularity: Double
     let posterPath, releaseDate, title: String
     let video: Bool
-    let voteAverage: Double 
+    let voteAverage: Double
     let voteCount: Int
     var posterURL: URL? {
         return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")

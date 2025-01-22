@@ -7,7 +7,7 @@
 
 import Foundation
 
-    // MARK: - Welcome
+    // MARK: - MovieDetails
 struct MovieDetails: Codable {
     let adult: Bool
     let backdropPath: String
@@ -31,7 +31,7 @@ struct MovieDetails: Codable {
     var posterURL: URL? {
         return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
     }
-
+    
     
     enum CodingKeys: String, CodingKey {
         case adult

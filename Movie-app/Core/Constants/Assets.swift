@@ -9,38 +9,38 @@ import UIKit
 
 enum Assets {
     
-    enum Cinema{
-        static let IcCinema = UIImage(named: "Ic_cinema")
-        static let IcCinama2 = UIImage(named: "Ic_cinema2")
+    enum Cinema {
+        static let icCinema = UIImage(named: "Ic_cinema")
+        static let icCinama2 = UIImage(named: "Ic_cinema2")
     }
     
-    enum Icons{
-        static let IcLocation = UIImage(named: "Ic_location")
-        static let IcNotification = UIImage(named: "Ic_notification")
-        static let IcStar = UIImage(named: "Ic_star")
-        static let IcSeat = UIImage(named: "Ic_seat")
-        static let IcVideo = UIImage(named: "Ic_video")
-        static let IcPromo = UIImage(named: "Ic_promo")
+    enum Icons {
+        static let icLocation = UIImage(named: "Ic_location")
+        static let icNotification = UIImage(named: "Ic_notification")
+        static let icStar = UIImage(named: "Ic_star")
+        static let icSeat = UIImage(named: "Ic_seat")
+        static let icVideo = UIImage(named: "Ic_video")
+        static let icPromo = UIImage(named: "Ic_promo")
     }
     
-    enum Movie{
+    enum Movie {
         static let moviePoster1 = UIImage(named: "Ic_movieposter1")
         static let moviePoster2 = UIImage(named: "Ic_movieposter2")
     }
     
-    enum Payment{
-        static let IcPayment1 = UIImage(named: "Ic_payment1")
-        static let IcPayment2 = UIImage(named: "Ic_payment2")
-        static let IcPayment3 = UIImage(named: "Ic_payment3")
-        static let IcPayment4 = UIImage(named: "Ic_payment4")
-        static let IcPayment5 = UIImage(named: "Ic_payment5")
+    enum Payment {
+        static let icPayment1 = UIImage(named: "Ic_payment1")
+        static let icPayment2 = UIImage(named: "Ic_payment2")
+        static let icPayment3 = UIImage(named: "Ic_payment3")
+        static let icPayment4 = UIImage(named: "Ic_payment4")
+        static let icPayment5 = UIImage(named: "Ic_payment5")
     }
     
-    enum Services{
-        static let IcService1 = UIImage(named: "Ic_s1")
-        static let IcService2 = UIImage(named: "Ic_s2")
-        static let IcService3 = UIImage(named: "Ic_s3")
-        static let IcService4 = UIImage(named: "Ic_s4")
+    enum Services {
+        static let icService1 = UIImage(named: "Ic_s1")
+        static let icService2 = UIImage(named: "Ic_s2")
+        static let icService3 = UIImage(named: "Ic_s3")
+        static let icService4 = UIImage(named: "Ic_s4")
     }
     
 }

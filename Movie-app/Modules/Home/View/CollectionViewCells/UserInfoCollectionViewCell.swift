@@ -19,7 +19,7 @@ class UserInfoCollectionViewCell: UICollectionViewCell {
         return label
     }()
     let notificationIcon: UIImageView = {
-        let imageView = UIImageView(image: Assets.Icons.IcNotification)
+        let imageView = UIImageView(image: Assets.Icons.icNotification)
         imageView.tintColor = CustomColors.textColor
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false

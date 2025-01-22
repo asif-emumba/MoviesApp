@@ -12,7 +12,7 @@ final class UserInfoSectionCellItem: CollectionViewCellItem {
     
     let item: String
     
-    init(item: String ){
+    init(item: String ) {
         self.item = item
     }
     

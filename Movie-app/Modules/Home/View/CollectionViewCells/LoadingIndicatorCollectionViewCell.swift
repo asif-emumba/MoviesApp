@@ -1,5 +1,5 @@
 //
-//  LoadingIndicatorCell.swift
+//  LoadingIndicatorCollectionViewCell.swift
 //  Movie-app
 //
 //  Created by Asif-emumba on 19/01/2025.
@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-class LoadingIndicatorCell: UICollectionViewCell {
-    static let identifier = "LoadingIndicatorCell"
+class LoadingIndicatorCollectionViewCell: UICollectionViewCell {
     
+    static let identifier = "LoadingIndicatorCell"
     let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.translatesAutoresizingMaskIntoConstraints = false
@@ -21,9 +21,10 @@ class LoadingIndicatorCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureUI()
+        configureUi()
     }
-    private func configureUI(){
+    
+    private func configureUi() {
         contentView.addSubview(activityIndicator)
         NSLayoutConstraint.activate([
             activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),

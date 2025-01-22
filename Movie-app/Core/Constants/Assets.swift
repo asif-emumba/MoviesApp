@@ -21,6 +21,7 @@ enum Assets {
         static let IcSeat = UIImage(named: "Ic_seat")
         static let IcVideo = UIImage(named: "Ic_video")
         static let IcPromo = UIImage(named: "Ic_promo")
+        static let IcCalendar = UIImage(named: "Ic_calendar")
     }
     
     enum Movie{

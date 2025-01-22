@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol MoviesSectionCellDelegate: AnyObject {
+protocol MovieCollectionViewCellDelegate: AnyObject {
     func movieCollectionViewCellDidSelect(cell: MovieCollectionViewCell)
 }
 
 class MovieCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "MoviesSectionCell"
-    weak var delegate: MoviesSectionCellDelegate?
+    static let identifier = "MovieCollectionViewCell"
+    weak var delegate: MovieCollectionViewCellDelegate?
     
     private let movieName = UILabel.createLabel(with: MovieNameLabelConfiguration())
     private let movieInfoLabel = UILabel.createLabel(with: MovieDurationLabelConfiguration())

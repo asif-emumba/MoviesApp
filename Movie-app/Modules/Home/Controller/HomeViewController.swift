@@ -8,8 +8,9 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    weak var coordinator: MainCoordinator?
-    private let viewModel = HomeViewModel()
+    
+    private let coordinator: MainCoordinator
+    private let viewModel : HomeViewModel
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: getCollectionViewLayout())
         collectionView.showsVerticalScrollIndicator = true
@@ -19,6 +20,16 @@ class HomeViewController: UIViewController {
         return collectionView
     }()
     
+    init(coordinator: MainCoordinator, viewModel: HomeViewModel) {
+        self.coordinator = coordinator
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.additionalSafeAreaInsets.top = 0
@@ -26,15 +37,17 @@ class HomeViewController: UIViewController {
         configureCollectionView()
         configureViewModel()
     }
-        //func to show section layout//
+    //func to show section layout//
     private func getCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
             self.viewModel.sections[sectionIndex].layoutSection
         }
     }
+    
 }
 
 extension HomeViewController {
+    
     private func configureUI() {
         view.backgroundColor = CustomColors.backgroundColor
         configureCollectionView()
@@ -45,6 +58,9 @@ extension HomeViewController {
         collectionView.register(UserInfoCollectionViewCell.self, forCellWithReuseIdentifier: UserInfoCollectionViewCell.identifier)
         collectionView.register(MovieHeaderCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: MoviesSectionHeaderView.reuseIdentifier)
+        collectionView.register(NowPlayingMoviesCollectionViewCell.self, forCellWithReuseIdentifier: NowPlayingMoviesCollectionViewCell.identifier)
+        collectionView.register(LoadingIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: LoadingIndicatorCollectionViewCell.identifier)
                                 withReuseIdentifier: MovieHeaderCollectionReusableView.reuseIdentifier)
         collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
         collectionView.register(LoadingIndicatorCell.self, forCellWithReuseIdentifier: LoadingIndicatorCell.identifier)
@@ -66,13 +82,14 @@ extension HomeViewController {
         viewModel.fetchMoviesByCategory(category: .nowPlaying)
         viewModel.fetchMoviesByCategory(category: .upcoming)
     }
+    
 }
 
-    // MARK: - UICollectionViewDelegate
+// MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
 }
 
-    // MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.sections.count
@@ -84,8 +101,8 @@ extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = viewModel.sections[indexPath.section]
-        if section.items[indexPath.item] is LoadingSectionCellItem {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingIndicatorCell.identifier, for: indexPath) as! LoadingIndicatorCell
+        if section.items[indexPath.item] is LoadingIndicatorCollectionViewCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LoadingIndicatorCollectionViewCell.identifier, for: indexPath) as! LoadingIndicatorCollectionViewCell
             cell.activityIndicator.startAnimating()
             return cell
         } else {
@@ -108,14 +125,16 @@ extension HomeViewController: UICollectionViewDataSource {
         
         let section = viewModel.sections[indexPath.section]
         header.configure(with: section.headerTitle ?? "")
+        let section = viewModel.sections[indexPath.section]
+        header.configure(with: section.headerTitle ?? "")
         return header
     }
 
 }
 
-    //AllMovie Section Movie Tapped
+//AllMovie Section Movie Tapped
 extension HomeViewController: MovieCollectionViewCellItemDelegate {
-    func movieCollectionViewCellItemDidSelect(cell: MovieCollectionViewCell, cellItem: MovieSectionCellItem) {
+    func movieCollectionViewCellItemDidSelect(cell: NowPlayingMoviesCollectionViewCell, cellItem: NowPlayingMovieSectionCellItem) {
         print("Movie section item tap goes here")
     }
 }

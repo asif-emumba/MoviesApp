@@ -15,8 +15,7 @@ class MainCoordinator: Coordinator {
     }
     
     func start() {
-        let viewController = HomeViewController()
-        viewController.coordinator = self
+        let viewController = HomeViewController(coordinator: self, viewModel: HomeViewModel())
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.setViewControllers([viewController], animated: false)
     }

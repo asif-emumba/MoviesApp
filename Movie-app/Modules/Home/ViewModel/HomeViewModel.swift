@@ -18,78 +18,30 @@ class HomeViewModel {
     
     weak var delegate: MovieHomeControllerViewModelDelegate?
     weak var movieCellDelegate: MovieCollectionViewCellItemDelegate?
-    weak var upComingCellDelegate: UpComingMovieCollectionViewCellItemDelegate?
     
-        // MARK: - Fetch Movies from api
-    private func fetchMovies(from endpoint: EndPoints, completion: @escaping ([Movies]?, Error?) -> Void) {
-        let urlString = "\(APIConstants.APIBaseURL)/\(endpoint.rawValue)?api_key=\(APIConstants.apiKey)"
-        guard let url = URL(string: urlString) else {
-            completion(nil, NetworkError.invalidURL)
-            return
-        }
-        
-        ApiService.shared.getRequest(url: url, expecting: MoviesResponse.self) { result in
-            switch result {
-                case .success(let response):
-                    completion(response.results, nil)
-                case .failure(let error):
-                    completion(nil, error)
-            }
-        }
+    // MARK: - Fetch Movies
+    func fetchMovies(from endpoint: EndPoints) async throws -> [Movies] {
+        let request = NowPlayingMoviesRequest(endpoint: endpoint)
+        let response = try await NetworkManager.shared.apiRequest(request)
+        return response.results
     }
     
-        // MARK: - Fetch Single Movie Details
-    private func fetchMovieDetails(movieId: Int, completion: @escaping (MovieDetails?, Error?) -> Void) {
-        let urlString = "\(APIConstants.APIBaseURL)/movie/\(movieId)?api_key=\(APIConstants.apiKey)"
-        guard let url = URL(string: urlString) else {
-            completion(nil, NetworkError.invalidURL)
-            return
-        }
-        
-        ApiService.shared.getRequest(url: url, expecting: MovieDetails.self) { result in
-            switch result {
-                case .success(let movieDetails):
-                    completion(movieDetails, nil)
-                case .failure(let error):
-                    completion(nil, error)
-            }
-        }
+    // MARK: - Fetch Movie Details
+    func fetchMovieDetails(movieId: Int) async throws -> MovieDetails {
+        let request = MovieDetailsRequest(movieId: movieId)
+        return try await NetworkManager.shared.apiRequest(request)
     }
     
-        // MARK: - Async Fetch Movies and Assign Details to the Appropriate Category
-    func fetchMoviesAsync(from endpoint: EndPoints, category: inout [MovieDetails]) async throws -> [MovieDetails] {
-            // Fetch the movies from the endpoint
-        let movies = try await withCheckedThrowingContinuation { continuation in
-            fetchMovies(from: endpoint) { movies, error in
-                if let movies = movies {
-                    continuation.resume(returning: movies)
-                } else if let error = error {
-                    continuation.resume(throwing: error)
-                } else {
-                    continuation.resume(throwing: NetworkError.invalidResponse)
-                }
-            }
-        }
+    // MARK: - Fetch Movies with Details
+    func fetchMoviesAsync(from endpoint: EndPoints) async throws -> [MovieDetails] {
+        let movies = try await fetchMovies(from: endpoint)
         
-            // Fetch details for each movie and append to the specified category if not already present
+        var detailedMovies: [MovieDetails] = []
         for movie in movies {
-            let movieDetails = try await withCheckedThrowingContinuation { continuation in
-                fetchMovieDetails(movieId: movie.id) { details, error in
-                    if let details = details {
-                        continuation.resume(returning: details)
-                    } else if let error = error {
-                        continuation.resume(throwing: error)
-                    } else {
-                        continuation.resume(throwing: NetworkError.invalidResponse)
-                    }
-                }
-            }
-            
-            if !category.contains(where: { $0.id == movieDetails.id }) {
-                category.append(movieDetails)
-            }
+            let details = try await fetchMovieDetails(movieId: movie.id)
+            detailedMovies.append(details)
         }
-        return category
+        return detailedMovies
     }
     
     func fetchMoviesByCategory(category: MovieCategoryName) {
@@ -109,22 +61,18 @@ class HomeViewModel {
         }
     }
     
-        // MARK: - Populate Sections
-    private func populateSections(with movies: [MovieDetails], upComingMovies: [MovieDetails]) {
+    // MARK: - Populate Sections
+    private func populateSections(with movies: [MovieDetails]) {
         let userGreeting = "Hi, Angelina 👋"
         sections = [
             UserInfoSection(headerTitle: "", items: [UserInfoSectionCellItem(item: userGreeting)]),
-            MoviesSection(
+            NowPlayingMovieSection(
                 headerTitle: "Now playing",
-                items: movies.map { MovieSectionCellItem(item: $0, delegate: movieCellDelegate) }
-            ),
-            UpComingMovieSection(
-                headerTitle: "Coming soon",
-                items: upComingMovies.map{ UpComingMovieSectionCellItem(item: $0, delegate: upComingCellDelegate) }
+                items: movies.map { NowPlayingMovieSectionCellItem(item: $0, delegate: movieCellDelegate) }
             )
         ]
         delegate?.reloadMovieData()
     }
-
+    
 }
 

@@ -1,86 +1,30 @@
-    //
-    //  NetworkManager.swift
-    //  Movie-app
-    //
-    //  Created by Emumba on 18/01/2025.
-    //
+//
+//  NetworkManager.swift
+//  Movie-app
+//
+//  Created by Emumba on 18/01/2025.
+//
 
 import Foundation
 
-class ApiService {
+class NetworkManager {
     
-    static let shared = ApiService()
-        //generic funtion for api call//
-    func getRequest<T: Codable>(
-        url: URL?,
-        expecting: T.Type,
-        completion: @escaping (Result<T, Error>) -> Void
-    ){
-        guard let url = url else {
-            completion(.failure(NetworkError.invalidURL))
-            return
-        }
-        let task = URLSession.shared.dataTask(with: url) {data, _, error in
-            guard let data = data else{
-                if let error = error {
-                    completion(.failure(error))
-                } else {
-                    completion(.failure(NetworkError.noData))
-                }
-                return
-            }
-            do {
-                let result = try JSONDecoder().decode(expecting, from: data)
-                completion(.success(result))
-            }
-            catch{
-                completion(.failure(error))
-            }
-        }
-        task.resume()
-    }
-    
-        //generic function for post api
-    func postRequest<T: Codable, U: Codable>(
-        url: URL?,
-        body: T,
-        expecting: U.Type,
-        completion: @escaping (Result<U, Error>) -> Void
-    ) {
-        guard let url = url else {
-            completion(.failure(NetworkError.invalidURL))
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+    static let shared = NetworkManager()
+    //generic funtion for api call//
+    func apiRequest<T: DataRequest>(
+        _ request: T
+    ) async throws -> T.Response {
         do {
-            let jsonData = try JSONEncoder().encode(body)
-            request.httpBody = jsonData
+            let urlRequest = try request.createURLRequest()
+            let (data, response) = try await URLSession.shared.data(for: urlRequest)
+            
+            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+                throw NetworkError.invalidResponse
+            }
+            
+            return try request.decode(data)
         } catch {
-            completion(.failure(error))
-            return
+            throw NetworkError.requestFailed(error)
         }
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else {
-                if let error = error {
-                    completion(.failure(error))
-                } else {
-                    completion(.failure(NetworkError.noData))
-                }
-                return
-            }
-            do {
-                let result = try JSONDecoder().decode(expecting, from: data)
-                completion(.success(result))
-            } catch {
-                completion(.failure(error))
-            }
-        }
-        task.resume()
     }
-    
 }

@@ -68,7 +68,7 @@ class HomeViewModel {
             UserInfoSection(headerTitle: "", items: [UserInfoSectionCellItem(item: userGreeting)]),
             NowPlayingMovieSection(
                 headerTitle: "Now playing",
-                items: movies.map { NowPlayingMovieSectionCellItem(item: $0, delegate: movieCellDelegate) }
+                items: movies.map { MoviesCellItem(item: $0, delegate: movieCellDelegate) }
             )
         ]
         delegate?.reloadMovieData()

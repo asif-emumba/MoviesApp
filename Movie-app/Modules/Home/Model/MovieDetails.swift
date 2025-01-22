@@ -7,7 +7,7 @@
 
 import Foundation
 
-    // MARK: - MovieDetails
+// MARK: - MovieDetails
 struct MovieDetails: Codable {
     let adult: Bool
     let backdropPath: String
@@ -29,10 +29,12 @@ struct MovieDetails: Codable {
     let voteAverage: Double
     let voteCount: Int
     var posterURL: URL? {
-        return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")
+        return URL(string: "\(APIConstants.imageBaseUrl)/w500\(posterPath)")
     }
-    
-    
+    var backdropURL: URL? {
+        return URL(string: "\(APIConstants.imageBaseUrl)/w780\(backdropPath)")
+    }
+
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
@@ -47,20 +49,19 @@ struct MovieDetails: Codable {
         case productionCountries = "production_countries"
         case releaseDate = "release_date"
         case revenue, runtime
-        
         case status, tagline, title, video
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
 }
 
-    // MARK: - Genre
+// MARK: - Genre
 struct Genre: Codable {
     let id: Int
     let name: String
 }
 
-    // MARK: - ProductionCompany
+// MARK: - ProductionCompany
 struct ProductionCompany: Codable {
     let id: Int
     let logoPath: String?
@@ -74,12 +75,12 @@ struct ProductionCompany: Codable {
     }
 }
 
-    // MARK: - ProductionCountry
+// MARK: - ProductionCountry
 struct ProductionCountry: Codable {
-    let iso3166_1, name: String
+    let iso31661, name: String
     
     enum CodingKeys: String, CodingKey {
-        case iso3166_1 = "iso_3166_1"
+        case iso31661 = "iso_3166_1"
         case name
     }
 }

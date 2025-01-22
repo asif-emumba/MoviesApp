@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MoviesSectionHeaderView: UICollectionReusableView {
+class MovieHeaderCollectionReusableView: UICollectionReusableView {
     static let reuseIdentifier = "MoviesSectionHeaderView"
     
     private let titleLabel = UILabel.createLabel(with: UpcomingMovieHeaderLabelConfiguration())

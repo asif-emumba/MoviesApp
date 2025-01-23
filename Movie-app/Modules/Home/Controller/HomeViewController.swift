@@ -127,8 +127,7 @@ extension HomeViewController: UICollectionViewDataSource {
         
         let section = viewModel.sections[indexPath.section]
         header.configure(with: section.headerTitle ?? "")
-        let section = viewModel.sections[indexPath.section]
-        header.configure(with: section.headerTitle ?? "")
+       
         return header
     }
 

@@ -62,6 +62,9 @@ extension HomeViewController {
         collectionView.register(NowPlayingMoviesCollectionViewCell.self, forCellWithReuseIdentifier: NowPlayingMoviesCollectionViewCell.identifier)
         collectionView.register(LoadingIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: LoadingIndicatorCollectionViewCell.identifier)
         collectionView.register(UpComingMovieCollectionViewCell.self, forCellWithReuseIdentifier: UpComingMovieCollectionViewCell.identifier)
+        collectionView.register(PromoAndDiscountCollectionViewCell.self, forCellWithReuseIdentifier: PromoAndDiscountCollectionViewCell.identifier)
+        collectionView.register(ServicesCollectionViewCell.self, forCellWithReuseIdentifier: ServicesCollectionViewCell.identifier)
+        collectionView.register(MovieNewsCollectionViewCell.self, forCellWithReuseIdentifier: MovieNewsCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         

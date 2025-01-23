@@ -48,3 +48,15 @@ struct UpComingMovieLabelConfigurations: LabelConfigurable {
     var textColor: UIColor { CustomColors.textColor ?? .white }
     var textAlignment: NSTextAlignment { .left }
 }
+
+struct ServicesLabelConfigurations: LabelConfigurable {
+    var font: UIFont { .systemFont(ofSize: 16, weight: .medium) }
+    var textColor: UIColor { CustomColors.textColor ?? .white }
+    var textAlignment: NSTextAlignment { .center }
+}
+
+struct MovieDescriptionLabelConfigurations: LabelConfigurable {
+    var font: UIFont { .systemFont(ofSize: 16, weight: .medium) }
+    var textColor: UIColor { CustomColors.textColor ?? .white }
+    var textAlignment: NSTextAlignment { .left }
+}

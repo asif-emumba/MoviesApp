@@ -72,7 +72,7 @@ class HomeViewModel {
                 items: movies.map { NowPlayingMovieSectionCellItem(item: $0, delegate: movieCellDelegate) }
             ),
             UpComingMovieSection(
-                headerTitle: "Upcoming",
+                headerTitle: "Coming soon",
                 items: upComingMovies.map { UpComingMovieSectionCellItem(item: $0, delegate: upcomingMovieCellDelegate) }
             )
         ]

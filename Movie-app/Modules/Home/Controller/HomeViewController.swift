@@ -59,7 +59,7 @@ extension HomeViewController {
         collectionView.register(UserInfoCollectionViewCell.self, forCellWithReuseIdentifier: UserInfoCollectionViewCell.identifier)
         collectionView.register(MovieHeaderCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: MoviesSectionHeaderView.reuseIdentifier)
+                                withReuseIdentifier: MovieHeaderCollectionReusableView.reuseIdentifier)
         collectionView.register(NowPlayingMoviesCollectionViewCell.self, forCellWithReuseIdentifier: NowPlayingMoviesCollectionViewCell.identifier)
         collectionView.register(LoadingIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: LoadingIndicatorCollectionViewCell.identifier)
         collectionView.register(UpComingMovieCollectionViewCell.self, forCellWithReuseIdentifier: UpComingMovieCollectionViewCell.identifier)

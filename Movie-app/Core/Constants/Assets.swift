@@ -25,8 +25,8 @@ enum Assets {
     }
     
     enum Movie {
-        static let moviePoster1 = UIImage(named: "Ic_movieposter1")
-        static let moviePoster2 = UIImage(named: "Ic_movieposter2")
+        static let moviePoster1 = "Ic_movieposter1"
+        static let moviePoster2 = "Ic_movieposter2"
     }
     
     enum Payment {
@@ -38,10 +38,10 @@ enum Assets {
     }
     
     enum Services {
-        static let icService1 = UIImage(named: "Ic_s1")
-        static let icService2 = UIImage(named: "Ic_s2")
-        static let icService3 = UIImage(named: "Ic_s3")
-        static let icService4 = UIImage(named: "Ic_s4")
+        static let icService1 = "Ic_s1"
+        static let icService2 = "Ic_s2"
+        static let icService3 = "Ic_s3"
+        static let icService4 = "Ic_s4"
     }
     
 }

@@ -50,7 +50,7 @@ class HomeViewModel {
             do {
                 switch category {
                     case .nowPlaying:
-                        nowPlayingMovies = try await fetchMoviesAsync(from: .nowPlaying, category: &nowPlayingMovies)
+                        nowPlayingMovies = try await fetchMoviesAsync(from: .nowPlaying)
                     case .upcoming:
                         upcomingMovies = try await fetchMoviesAsync(from: .upcoming)
                 }

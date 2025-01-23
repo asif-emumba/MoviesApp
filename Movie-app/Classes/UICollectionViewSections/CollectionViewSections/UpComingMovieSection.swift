@@ -25,7 +25,7 @@ final class UpComingMovieSection: CollectionViewSection {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
             // Define the group size for the horizontal scrollable category buttons
         let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(200),
-                                               heightDimension: .absolute(400))
+                                               heightDimension: .absolute(342))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             // Define the section and its boundary supplementary items
         let section = NSCollectionLayoutSection(group: group)

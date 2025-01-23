@@ -25,7 +25,7 @@ final class NowPlayingMovieSection: CollectionViewSection {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         // Define the group size for the horizontal scrollable category buttons
         let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(700),
-                                               heightDimension: .absolute(250))
+                                               heightDimension: .absolute(548))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         // Define the section and its boundary supplementary items
         let section = NSCollectionLayoutSection(group: group)

@@ -58,12 +58,9 @@ extension HomeViewController {
         collectionView.register(UserInfoCollectionViewCell.self, forCellWithReuseIdentifier: UserInfoCollectionViewCell.identifier)
         collectionView.register(MovieHeaderCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: MoviesSectionHeaderView.reuseIdentifier)
+                                withReuseIdentifier: MovieHeaderCollectionReusableView.reuseIdentifier)
         collectionView.register(NowPlayingMoviesCollectionViewCell.self, forCellWithReuseIdentifier: NowPlayingMoviesCollectionViewCell.identifier)
         collectionView.register(LoadingIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: LoadingIndicatorCollectionViewCell.identifier)
-                                withReuseIdentifier: MovieHeaderCollectionReusableView.reuseIdentifier)
-        collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.identifier)
-        collectionView.register(LoadingIndicatorCell.self, forCellWithReuseIdentifier: LoadingIndicatorCell.identifier)
         collectionView.register(UpComingMovieCollectionViewCell.self, forCellWithReuseIdentifier: UpComingMovieCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -133,7 +130,7 @@ extension HomeViewController: UICollectionViewDataSource {
 }
 
 //AllMovie Section Movie Tapped
-extension HomeViewController: MovieCollectionViewCellItemDelegate {
+extension HomeViewController: NowPlayingMovieCollectionViewCellItemDelegate {
     func movieCollectionViewCellItemDidSelect(cell: NowPlayingMoviesCollectionViewCell, cellItem: NowPlayingMovieSectionCellItem) {
         print("Movie section item tap goes here")
     }

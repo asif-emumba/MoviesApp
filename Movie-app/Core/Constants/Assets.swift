@@ -10,8 +10,8 @@ import UIKit
 enum Assets {
     
     enum Cinema {
-        static let icCinema = UIImage(named: "Ic_cinema")
-        static let icCinama2 = UIImage(named: "Ic_cinema2")
+        static let icCinema = "Ic_cinema"
+        static let icCinema2 = "Ic_cinema2"
     }
     
     enum Icons {
@@ -22,6 +22,9 @@ enum Assets {
         static let icVideo = UIImage(named: "Ic_video")
         static let icPromo = UIImage(named: "Ic_promo")
         static let icCalendar = UIImage(named: "Ic_calendar")
+        static let icPlay = UIImage(named: "Ic_play")
+        static let icRatingStar = UIImage(named: "Ic_ratingstar")
+        static let icBackArrow = UIImage(named: "Ic_arrow_left")
     }
     
     enum Movie {

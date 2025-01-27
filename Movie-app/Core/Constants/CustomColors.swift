@@ -12,4 +12,7 @@ enum CustomColors {
     static let textColor = UIColor(named: "textColor")
     static let subHeadingColor = UIColor(named: "subHeadingColor")
     static let yellowColor = UIColor(named: "highlighterColor")
+    static let detailsCardBgColor = UIColor(named: "grayishBlack")
+    static let grayShadeColor = UIColor(named: "grayShadeColor")
+    static let selectedColor = UIColor(named: "selectedColor")
 }

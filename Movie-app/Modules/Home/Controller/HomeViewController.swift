@@ -79,6 +79,7 @@ extension HomeViewController {
     private func configureViewModel() {
         viewModel.delegate = self
         viewModel.movieCellDelegate = self
+        viewModel.upcomingMovieCellDelegate = self
         viewModel.fetchMoviesByCategory(category: .nowPlaying)
         viewModel.fetchMoviesByCategory(category: .upcoming)
     }
@@ -134,7 +135,14 @@ extension HomeViewController: UICollectionViewDataSource {
 //AllMovie Section Movie Tapped
 extension HomeViewController: NowPlayingMovieCollectionViewCellItemDelegate {
     func movieCollectionViewCellItemDidSelect(cell: NowPlayingMoviesCollectionViewCell, cellItem: NowPlayingMovieSectionCellItem) {
-        print("Movie section item tap goes here")
+        coordinator.navigateToDetail(movieDetails: cellItem.item)
+    }
+}
+
+extension HomeViewController: UpComingMovieCollectionViewCellItemDelegate {
+    func upComingMovieCollectionViewCellItemDidSelect(cell: UpComingMovieCollectionViewCell, cellItem: UpComingMovieSectionCellItem) {
+        coordinator.navigateToDetail(movieDetails: cellItem.item)
+        print("Tapped detected from UpComingMovieCollectionViewCellItemDelegate \(cellItem.item.id) named as \(cellItem.item.title)")
     }
 }
 

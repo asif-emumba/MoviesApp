@@ -1,5 +1,5 @@
 //
-//  NowPlayingMoviesCollectionViewCell.swift
+//  MovieCollectionViewCell.swift
 //  Movie-app
 //
 //  Created by Asif-emumba on 19/01/2025.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol NowPlayingMoviesSectionCellDelegate: AnyObject {
-    func movieCollectionViewCellDidSelect(cell: NowPlayingMoviesCollectionViewCell)
+protocol MovieCollectionViewCellDelegate: AnyObject {
+    func movieCollectionViewCellDidSelect(cell: MovieCollectionViewCell)
 }
 
-class NowPlayingMoviesCollectionViewCell: UICollectionViewCell {
+class MovieCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "NowPlayingMoviesCollectionViewCell"
-    weak var delegate: NowPlayingMoviesSectionCellDelegate?
+    static let identifier = "MovieCollectionViewCell"
+    weak var delegate: MovieCollectionViewCellDelegate?
     
     private let movieName = UILabel.createLabel(with: MovieNameLabelConfiguration())
     private let movieInfoLabel = UILabel.createLabel(with: MovieDurationLabelConfiguration())
@@ -27,7 +27,7 @@ class NowPlayingMoviesCollectionViewCell: UICollectionViewCell {
     }()
     
     private let starIcon: UIImageView = {
-        let imageView = UIImageView(image: Assets.Icons.icStar)
+        let imageView = UIImageView(image: Assets.Icons.IcStar)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -98,14 +98,14 @@ class NowPlayingMoviesCollectionViewCell: UICollectionViewCell {
         if let posterURL = movie.posterURL {
             posterImage.loadImage(from: posterURL.absoluteString)
         }
-        // Calculate hours and minutes
+            // Calculate hours and minutes
         let hours = movie.runtime / 60
         let minutes = movie.runtime % 60
         let formattedRuntime = "\(hours)h\(minutes)m"
-        // Format runtime and genres
+            // Format runtime and genres
         let genreNames = movie.genres.map { $0.name }.joined(separator: ", ")
         movieInfoLabel.text = "\(formattedRuntime) • \(genreNames)"
-        // Configure other labels
+            // Configure other labels
         movieName.text = movie.title
         movieRatingLabel.text = String(format: "%.1f", movie.voteAverage)
     }
@@ -118,7 +118,6 @@ class NowPlayingMoviesCollectionViewCell: UICollectionViewCell {
     @objc private func posterImageViewTapped() {
         delegate?.movieCollectionViewCellDidSelect(cell: self)
     }
-    
 }
 
 

@@ -8,9 +8,8 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    
-    private let coordinator: MainCoordinator
-    private let viewModel : HomeViewModel
+    weak var coordinator: MainCoordinator?
+    private let viewModel = HomeViewModel()
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: getCollectionViewLayout())
         collectionView.showsVerticalScrollIndicator = true
@@ -43,11 +42,9 @@ class HomeViewController: UIViewController {
             self.viewModel.sections[sectionIndex].layoutSection
         }
     }
-    
 }
 
 extension HomeViewController {
-    
     private func configureUI() {
         view.backgroundColor = CustomColors.backgroundColor
         configureCollectionView()
@@ -56,11 +53,12 @@ extension HomeViewController {
     private func configureCollectionView() {
         view.addSubview(collectionView)
         collectionView.register(UserInfoCollectionViewCell.self, forCellWithReuseIdentifier: UserInfoCollectionViewCell.identifier)
-        collectionView.register(MoviesSectionHeaderView.self,
+        collectionView.register(MovieHeaderCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: MoviesSectionHeaderView.reuseIdentifier)
+                                withReuseIdentifier: MovieHeaderCollectionReusableView.reuseIdentifier)
         collectionView.register(NowPlayingMoviesCollectionViewCell.self, forCellWithReuseIdentifier: NowPlayingMoviesCollectionViewCell.identifier)
         collectionView.register(LoadingIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: LoadingIndicatorCollectionViewCell.identifier)
+        collectionView.register(UpComingMovieCollectionViewCell.self, forCellWithReuseIdentifier: UpComingMovieCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         
@@ -76,8 +74,8 @@ extension HomeViewController {
         viewModel.delegate = self
         viewModel.movieCellDelegate = self
         viewModel.fetchMoviesByCategory(category: .nowPlaying)
+        viewModel.fetchMoviesByCategory(category: .upcoming)
     }
-    
 }
 
 // MARK: - UICollectionViewDelegate
@@ -114,9 +112,9 @@ extension HomeViewController: UICollectionViewDataSource {
         
         let header = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
-            withReuseIdentifier: MoviesSectionHeaderView.reuseIdentifier,
+            withReuseIdentifier: MovieHeaderCollectionReusableView.reuseIdentifier,
             for: indexPath
-        ) as! MoviesSectionHeaderView
+        ) as! MovieHeaderCollectionReusableView
         
         let section = viewModel.sections[indexPath.section]
         header.configure(with: section.headerTitle ?? "")
@@ -126,7 +124,7 @@ extension HomeViewController: UICollectionViewDataSource {
 }
 
 //AllMovie Section Movie Tapped
-extension HomeViewController: MovieCollectionViewCellItemDelegate {
+extension HomeViewController: NowPlayingMovieCollectionViewCellItemDelegate {
     func movieCollectionViewCellItemDidSelect(cell: NowPlayingMoviesCollectionViewCell, cellItem: NowPlayingMovieSectionCellItem) {
         print("Movie section item tap goes here")
     }

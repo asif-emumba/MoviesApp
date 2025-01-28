@@ -14,9 +14,11 @@ protocol MovieHomeControllerViewModelDelegate: AnyObject {
 class HomeViewModel {
     var sections: [CollectionViewSection] = []
     var nowPlayingMovies: [MovieDetails] = []
+    var upcomingMovies: [MovieDetails] = []
     
     weak var delegate: MovieHomeControllerViewModelDelegate?
-    weak var movieCellDelegate: MovieCollectionViewCellItemDelegate?
+    weak var movieCellDelegate: NowPlayingMovieCollectionViewCellItemDelegate?
+    weak var upcomingMovieCellDelegate: UpComingMovieCollectionViewCellItemDelegate?
     
     // MARK: - Fetch Movies
     func fetchMovies(from endpoint: EndPoints) async throws -> [Movies] {
@@ -48,11 +50,11 @@ class HomeViewModel {
             do {
                 switch category {
                     case .nowPlaying:
-                        nowPlayingMovies = try await fetchMoviesAsync(from: .nowPlaying)
+                        nowPlayingMovies = try await fetchMoviesAsync(from: .nowPlaying, category: &nowPlayingMovies)
                     case .upcoming:
-                        print("Fetching upcoming movies (not implemented)")
+                        upcomingMovies = try await fetchMoviesAsync(from: .upcoming)
                 }
-                populateSections(with: nowPlayingMovies)
+                populateSections(with: nowPlayingMovies, upComingMovies: upcomingMovies)
                 delegate?.reloadMovieData()
             } catch {
                 print("Failed to fetch movies for category \(category): \(error)")
@@ -61,13 +63,17 @@ class HomeViewModel {
     }
     
     // MARK: - Populate Sections
-    private func populateSections(with movies: [MovieDetails]) {
+    private func populateSections(with movies: [MovieDetails], upComingMovies: [MovieDetails]) {
         let userGreeting = "Hi, Angelina 👋"
         sections = [
             UserInfoSection(headerTitle: "", items: [UserInfoSectionCellItem(item: userGreeting)]),
             NowPlayingMovieSection(
                 headerTitle: "Now playing",
                 items: movies.map { NowPlayingMovieSectionCellItem(item: $0, delegate: movieCellDelegate) }
+            ),
+            UpComingMovieSection(
+                headerTitle: "Coming soon",
+                items: upComingMovies.map { UpComingMovieSectionCellItem(item: $0, delegate: upcomingMovieCellDelegate) }
             )
         ]
         delegate?.reloadMovieData()

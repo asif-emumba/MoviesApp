@@ -11,4 +11,5 @@ enum CustomColors {
     static let backgroundColor = UIColor(named: "backgroundColor")
     static let textColor = UIColor(named: "textColor")
     static let subHeadingColor = UIColor(named: "subHeadingColor")
+    static let yellowColor = UIColor(named: "highlighterColor")
 }

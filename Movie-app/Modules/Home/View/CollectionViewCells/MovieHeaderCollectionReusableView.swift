@@ -7,9 +7,9 @@
 
 import UIKit
 
-class MoviesSectionHeaderView: UICollectionReusableView {
+class MovieHeaderCollectionReusableView: UICollectionReusableView {
     
-    static let reuseIdentifier = "MoviesSectionHeaderView"
+    static let reuseIdentifier = "MovieHeaderCollectionReusableView"
     private let titleLabel = UILabel.createLabel(with: UpcomingMovieHeaderLabelConfiguration())
     
     override init(frame: CGRect) {
@@ -34,6 +34,5 @@ class MoviesSectionHeaderView: UICollectionReusableView {
     func configure(with title: String) {
         titleLabel.text = title
     }
-    
 }
 

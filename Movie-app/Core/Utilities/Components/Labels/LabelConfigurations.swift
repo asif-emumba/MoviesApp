@@ -108,3 +108,11 @@ struct AppBarLabelConfiguration: LabelConfigurable {
     var textAlignment: NSTextAlignment { .left }
     var font: UIFont { .systemFont(ofSize: 28, weight: .bold) }
 }
+
+struct PriceLabelConfiguration: LabelConfigurable {
+    var textColor: UIColor {
+        CustomColors.yellowColor?.withAlphaComponent(0.8) ?? .yellow.withAlphaComponent(0.8)
+    }
+    var textAlignment: NSTextAlignment { .left }
+    var font: UIFont { .systemFont(ofSize: 24, weight: .bold) }
+}

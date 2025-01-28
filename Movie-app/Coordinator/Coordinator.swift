@@ -7,8 +7,8 @@
 
 import UIKit
 
-protocol Coordinator: AnyObject {
-    var navigationController: UINavigationController { get }
+protocol Coordinator {
+    var navigationController: UINavigationController { get set }
     func start()
     func popToRootViewController()
 }

@@ -8,11 +8,12 @@
 import UIKit
 
 class PaymentViewController: UIViewController {
-    
+   
     let coordinator: MainCoordinator?
     let viewModel: PaymentViewModel
     let appBarView = AppBarView()
-    
+    private var timerView = TimerView()
+    private let continueButton = ContinueButtonView()
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: getCollectionViewLayout())
         collectionView.showsVerticalScrollIndicator = true
@@ -34,9 +35,12 @@ class PaymentViewController: UIViewController {
                    
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUi()
+        configureAppBar()
+        setupTimerView()
     }
     
-        //func to show section layout//
+    //func to show section layout//
     private func getCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
             self.viewModel.sections[sectionIndex].layoutSection
@@ -45,13 +49,24 @@ class PaymentViewController: UIViewController {
     
     private func configureUi() {
         view.addSubview(appBarView)
+        view.addSubview(timerView)
+        view.addSubview(continueButton)
         setUpConstrains()
         configureViewModel()
     }
     
     private func configureAppBar() {
         appBarView.delegate = self
-        appBarView.setTitle("Select Seat")
+        appBarView.setTitle("Payment")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        timerView.startTimer()
+    }
+    
+    private func setupTimerView() {
+        timerView.delegate = self
     }
 
 }
@@ -60,6 +75,9 @@ extension PaymentViewController {
     private func setUpConstrains() {
         view.addSubview(collectionView)
         collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.register(PaymentMovieCoverCollectionViewCell.self, forCellWithReuseIdentifier: PaymentMovieCoverCollectionViewCell.identifier)
+        collectionView.register(SeatAndPriceCollectionViewCell.self, forCellWithReuseIdentifier: SeatAndPriceCollectionViewCell.identifier)
+        collectionView.register(PaymentGatewayCollectionViewCell.self, forCellWithReuseIdentifier: PaymentGatewayCollectionViewCell.identifier)
         collectionView.register(MovieHeaderCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: MovieHeaderCollectionReusableView.reuseIdentifier)
@@ -74,12 +92,25 @@ extension PaymentViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: appBarView.bottomAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            
+            timerView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 32),
+            timerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            timerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            timerView.heightAnchor.constraint(equalToConstant: 52),
+            
+            continueButton.topAnchor.constraint(equalTo: timerView.bottomAnchor, constant: 16),
+            continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+            continueButton.heightAnchor.constraint(equalToConstant: 56)
         ])
     }
     
     private func configureViewModel() {
-       
+        viewModel.delegete = self
+        viewModel.paymentGatewayDelegate = self
+        continueButton.delegate = self
+        viewModel.updateMovieInfoData()
     }
 }
 
@@ -132,5 +163,31 @@ extension PaymentViewController: UICollectionViewDataSource {
 extension PaymentViewController: AppBarDelegate {
     func didTapBackButton() {
         coordinator?.popToRootViewController()
+    }
+}
+
+extension PaymentViewController: PaymentViewModelDelegate {
+    func reloadData() {
+        collectionView.reloadData()
+    }
+}
+
+extension PaymentViewController: PaymentGatewaySectionCellItemDelegate {
+    func paymentGatewaySectionCellItemDidSelect(cell: PaymentGatewayCollectionViewCell, cellItem: PaymentGatewaySectionCellItem) {
+        if let indexPath = collectionView.indexPath(for: cell) {
+            viewModel.updateSelectedPayment(to: indexPath.item)
+        }
+    }
+}
+
+extension PaymentViewController: TimerCompletionDelegate {
+    func timerDidComplete() {
+        coordinator?.popToRootViewController()
+    }
+}
+
+extension PaymentViewController: ContinueButtonViewDelegate {
+    func continueButtonTapped() {
+        print("Continue button tapped")
     }
 }

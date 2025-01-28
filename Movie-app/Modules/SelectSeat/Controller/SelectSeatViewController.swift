@@ -40,7 +40,7 @@ class SelectSeatViewController: UIViewController {
         configureUi()
     }
     
-        //func to show section layout//
+    //func to show section layout//
     private func getCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
             self.viewModel.sections[sectionIndex].layoutSection
@@ -63,7 +63,7 @@ class SelectSeatViewController: UIViewController {
     }
     
     private func setUpConstrains() {
-        gradientBorderView.frame = CGRect(x: 0, y: 84, width: view.bounds.width, height: 84) // Adjust height as needed
+        gradientBorderView.frame = CGRect(x: 0, y: 84, width: view.bounds.width, height: 84)
         gradientBorderView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(gradientBorderView)
@@ -196,8 +196,11 @@ extension SelectSeatViewController: TimeSectionCellItemDelegate {
 
 extension SelectSeatViewController: BuyTimeTicketDelegate {
     func buyTicketButtonTap() {
-        let selectedSeats = viewModel.selectedSeats
         let selectedDate = viewModel.sessionDays.first { $0.isSelected }
         let selectedTime = viewModel.sessionTime.first { $0.isSelected }
+        if selectedDate == nil || selectedTime == nil {
+            return
+        }
+        coordinator.navigateToPayment(selectedSeats: viewModel.selectedSeats, selectedDate: selectedDate!, selectedTime: selectedTime!)
     }
 }

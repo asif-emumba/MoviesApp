@@ -8,9 +8,8 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    
-    private let coordinator: MainCoordinator
-    private let viewModel : HomeViewModel
+    weak var coordinator: MainCoordinator?
+    private let viewModel = HomeViewModel()
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: getCollectionViewLayout())
         collectionView.showsVerticalScrollIndicator = true
@@ -43,11 +42,9 @@ class HomeViewController: UIViewController {
             self.viewModel.sections[sectionIndex].layoutSection
         }
     }
-    
 }
 
 extension HomeViewController {
-    
     private func configureUI() {
         view.backgroundColor = CustomColors.backgroundColor
         configureCollectionView()
@@ -82,7 +79,6 @@ extension HomeViewController {
         viewModel.fetchMoviesByCategory(category: .nowPlaying)
         viewModel.fetchMoviesByCategory(category: .upcoming)
     }
-    
 }
 
 // MARK: - UICollectionViewDelegate

@@ -198,9 +198,10 @@ extension SelectSeatViewController: BuyTimeTicketDelegate {
     func buyTicketButtonTap() {
         let selectedDate = viewModel.sessionDays.first { $0.isSelected }
         let selectedTime = viewModel.sessionTime.first { $0.isSelected }
+        let selectedCinema = viewModel.cinemaDetails
         if selectedDate == nil || selectedTime == nil {
             return
         }
-        coordinator.navigateToPayment(selectedSeats: viewModel.selectedSeats, selectedDate: selectedDate!, selectedTime: selectedTime!)
+        coordinator.navigateToPayment(movieDetails: viewModel.movieDetails, cinemaDetails: selectedCinema, selectedSeats: viewModel.selectedSeats, selectedDate: selectedDate!, selectedTime: selectedTime!)
     }
 }

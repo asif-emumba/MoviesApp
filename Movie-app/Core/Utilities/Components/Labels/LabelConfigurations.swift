@@ -140,3 +140,21 @@ struct TimerLabelConfiguration: LabelConfigurable {
     var textColor: UIColor { CustomColors.yellowColor  ?? .yellow}
     var textAlignment: NSTextAlignment { .left }
 }
+
+struct TicketLabelConfiguration: LabelConfigurable {
+    var font: UIFont { .systemFont(ofSize: 14, weight: .regular) }
+    var textColor: UIColor { CustomColors.backgroundColor  ?? .black}
+    var textAlignment: NSTextAlignment { .left }
+}
+
+struct CinemaNameTicketLabelConfiguration: LabelConfigurable {
+    var font: UIFont { .systemFont(ofSize: 16, weight: .medium) }
+    var textColor: UIColor { CustomColors.backgroundColor  ?? .black}
+    var textAlignment: NSTextAlignment { .left }
+}
+
+struct MovieTitleLabelConfiguration: LabelConfigurable {
+    var font: UIFont { .systemFont(ofSize: 20, weight: .semibold) }
+    var textColor: UIColor { CustomColors.backgroundColor ?? .black }
+    var textAlignment: NSTextAlignment { .left }
+}

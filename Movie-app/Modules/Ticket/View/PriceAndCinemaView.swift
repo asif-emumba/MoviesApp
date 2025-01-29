@@ -76,10 +76,10 @@ class PriceAndCinemaView: UIView {
             locationImageView.widthAnchor.constraint(equalToConstant: 24),
             
             cinemaNameLabel.leadingAnchor.constraint(equalTo: locationImageView.trailingAnchor, constant: 8),
-            cinemaNameLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 12),
+            cinemaNameLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 14),
             
             cinemaLogoImageView.leadingAnchor.constraint(equalTo: cinemaNameLabel.trailingAnchor, constant: 8),
-            cinemaLogoImageView.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 8),
+            cinemaLogoImageView.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 15),
             cinemaLogoImageView.heightAnchor.constraint(equalToConstant: 16),
             cinemaLogoImageView.widthAnchor.constraint(equalToConstant: 32),
             

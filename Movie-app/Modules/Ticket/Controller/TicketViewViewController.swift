@@ -97,7 +97,6 @@ extension TicketViewViewController {
             ticketView.topAnchor.constraint(equalTo: appBarView.bottomAnchor, constant: 40),
             ticketView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             ticketView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            ticketView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
             
             movieCoverView.topAnchor.constraint(equalTo: ticketView.topAnchor, constant: 24),
             movieCoverView.leadingAnchor.constraint(equalTo: ticketView.leadingAnchor, constant: 24),
@@ -125,6 +124,7 @@ extension TicketViewViewController {
             
             barCodeImageView.leadingAnchor.constraint(equalTo: ticketView.leadingAnchor, constant: 16),
             barCodeImageView.trailingAnchor.constraint(equalTo: ticketView.trailingAnchor, constant: -16),
+            barCodeImageView.topAnchor.constraint(equalTo: dottedLineView.bottomAnchor, constant: 19),
             barCodeImageView.heightAnchor.constraint(equalToConstant: 100),
             
             orderIdLabel.topAnchor.constraint(equalTo: barCodeImageView.bottomAnchor, constant: 8),

@@ -27,7 +27,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     }()
     
     private let starIcon: UIImageView = {
-        let imageView = UIImageView(image: Assets.Icons.IcStar)
+        let imageView = UIImageView(image: Assets.Icons.icStar)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView

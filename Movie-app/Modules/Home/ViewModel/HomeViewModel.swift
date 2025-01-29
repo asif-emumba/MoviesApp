@@ -67,6 +67,7 @@ class HomeViewModel {
         let userGreeting = "Hi, Angelina 👋"
         let service = Service.mockData
         let movieNews = MovieNews.mockData
+      
         sections = [
             UserInfoSection(headerTitle: "", items: [UserInfoSectionCellItem(item: userGreeting)]),
             NowPlayingMovieSection(
@@ -83,6 +84,7 @@ class HomeViewModel {
             ),
             ServiceSection(headerTitle: "Service", items: service.map { ServiceSectionCellItem(item: $0) }),
             MovieNewsSection(headerTitle: "Movie news", items: movieNews.map { MovieNewsSectionCellItem(item: $0) })
+            )
         ]
         delegate?.reloadMovieData()
     }

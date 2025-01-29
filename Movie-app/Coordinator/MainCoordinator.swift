@@ -50,5 +50,13 @@ class MainCoordinator: Coordinator {
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(paymentViewController, animated: true)
     }
-
+    
+    func navigateToTicket(movieDetails: MovieDetails, cinemaDetails: Cinema,selectedSeats: [Seat], selectedDate: Session ,selectedTime: SessionTime) {
+        let ticketViewController = TicketViewViewController(
+            coordinator: self,
+            viewModel: TicketViewModel(selectedSeats: selectedSeats, movieDetails: movieDetails, cinemaDetails: cinemaDetails, selectedDate: selectedDate, selectedTime: selectedTime)
+        )
+        navigationController.setNavigationBarHidden(true, animated: false)
+        navigationController.pushViewController(ticketViewController, animated: true)
+    }
 }

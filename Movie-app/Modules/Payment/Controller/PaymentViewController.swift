@@ -188,6 +188,6 @@ extension PaymentViewController: TimerCompletionDelegate {
 
 extension PaymentViewController: ContinueButtonViewDelegate {
     func continueButtonTapped() {
-        print("Continue button tapped")
+        coordinator?.navigateToTicket(movieDetails: viewModel.movieDetails, cinemaDetails: viewModel.cinemaDetails, selectedSeats: viewModel.selectedSeats, selectedDate: viewModel.selectedDate, selectedTime: viewModel.selectedTime)
     }
 }

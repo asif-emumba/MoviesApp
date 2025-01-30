@@ -146,6 +146,13 @@ extension HomeViewController: UpComingMovieCollectionViewCellItemDelegate {
     }
 }
 
+extension HomeViewController: UpComingMovieCollectionViewCellItemDelegate {
+    func upComingMovieCollectionViewCellItemDidSelect(cell: UpComingMovieCollectionViewCell, cellItem: UpComingMovieSectionCellItem) {
+        coordinator.navigateToDetail(movieDetails: cellItem.item)
+        print("Tapped detected from UpComingMovieCollectionViewCellItemDelegate \(cellItem.item.id) named as \(cellItem.item.title)")
+    }
+}
+
 extension HomeViewController: MovieHomeControllerViewModelDelegate {
     func reloadMovieData() {
         self.collectionView.reloadData()

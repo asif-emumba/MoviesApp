@@ -108,35 +108,3 @@ struct AppBarLabelConfiguration: LabelConfigurable {
     var textAlignment: NSTextAlignment { .left }
     var font: UIFont { .systemFont(ofSize: 28, weight: .bold) }
 }
-
-struct PriceLabelConfiguration: LabelConfigurable {
-    var textColor: UIColor {
-        CustomColors.yellowColor?.withAlphaComponent(0.8) ?? .yellow.withAlphaComponent(0.8)
-    }
-    var textAlignment: NSTextAlignment { .left }
-    var font: UIFont { .systemFont(ofSize: 24, weight: .bold) }
-}
-
-struct PosterMovieNameLabelConfiguration: LabelConfigurable {
-    var font: UIFont { .systemFont(ofSize: 20, weight: .bold) }
-    var textColor: UIColor { CustomColors.yellowColor ?? .yellow }
-    var textAlignment: NSTextAlignment { .left }
-}
-
-struct MoviePaymentLabelConfiguration: LabelConfigurable {
-    var font: UIFont { .systemFont(ofSize: 16, weight: .regular) }
-    var textColor: UIColor { CustomColors.textColor ?? .white }
-    var textAlignment: NSTextAlignment { .left }
-}
-
-struct CinemaLabelLabelConfiguration: LabelConfigurable {
-    var font: UIFont { .systemFont(ofSize: 24, weight: .bold) }
-    var textColor: UIColor { CustomColors.yellowColor ?? .yellow }
-    var textAlignment: NSTextAlignment { .left }
-}
-
-struct TimerLabelConfiguration: LabelConfigurable {
-    var font: UIFont { .systemFont(ofSize: 16, weight: .bold) }
-    var textColor: UIColor { CustomColors.yellowColor  ?? .yellow}
-    var textAlignment: NSTextAlignment { .left }
-}

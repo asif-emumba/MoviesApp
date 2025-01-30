@@ -24,10 +24,4 @@ class MainCoordinator: Coordinator {
         navigationController.popToRootViewController(animated: false)
     }
     
-    func navigateToDetail(movieDetails: MovieDetails) {
-        let movieDetailsViewController = MovieDetailsViewController(coordinator: self, viewModel: MovieDetailsViewModel(movieDetails: movieDetails))
-        navigationController.setNavigationBarHidden(true, animated: false)
-        navigationController.pushViewController(movieDetailsViewController, animated: true)
-    }
-    
 }

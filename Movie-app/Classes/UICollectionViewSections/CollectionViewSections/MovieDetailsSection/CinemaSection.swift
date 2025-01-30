@@ -34,7 +34,8 @@ final class CinemaSection: CollectionViewSection {
         section.orthogonalScrollingBehavior = .none
         // Add a header to the section
         if headerTitle != nil {
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(47))
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                    heightDimension: .absolute(47))
             let header = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: headerSize,
                 elementKind: UICollectionView.elementKindSectionHeader,

@@ -10,8 +10,8 @@ import UIKit
 
 protocol CollectionViewSection {
     var headerTitle: String? { set get }
-    //number of items in a single section 
+    // Number of items in a single section
     var items: [CollectionViewCellItem] { set get }
-    //section layout
+    // Section layout
     var layoutSection: NSCollectionLayoutSection { get }
 }

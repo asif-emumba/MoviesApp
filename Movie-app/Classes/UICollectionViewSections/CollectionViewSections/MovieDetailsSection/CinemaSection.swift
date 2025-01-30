@@ -19,23 +19,22 @@ final class CinemaSection: CollectionViewSection {
     }
     
     var layoutSection: NSCollectionLayoutSection {
-            // Define the item size for the category buttons
+        // Define the item size for the category buttons
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .absolute(90))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            // Define the group size for the horizontal scrollable category buttons
+        // Define the group size for the horizontal scrollable category buttons
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                heightDimension: .estimated(500))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
-            // Define the section and its boundary supplementary items
+        // Define the section and its boundary supplementary items
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 16
         section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16)
         section.orthogonalScrollingBehavior = .none
-            // Add a header to the section
+        // Add a header to the section
         if headerTitle != nil {
-            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                    heightDimension: .absolute(47))
+            let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(47))
             let header = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: headerSize,
                 elementKind: UICollectionView.elementKindSectionHeader,

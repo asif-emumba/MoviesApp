@@ -27,7 +27,7 @@ final class MovieDetailsCoverSection: CollectionViewSection {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0)
-        section.orthogonalScrollingBehavior = .none // Ensures it's non-scrollable
+        section.orthogonalScrollingBehavior = .none
         return section
     }
     

@@ -46,7 +46,6 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController {
-
     private func configureUI() {
         view.backgroundColor = CustomColors.backgroundColor
         configureCollectionView()

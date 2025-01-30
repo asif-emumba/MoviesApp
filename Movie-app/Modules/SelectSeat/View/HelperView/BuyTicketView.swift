@@ -72,7 +72,7 @@ class BuyTicketView: UIView {
             
             buyButton.centerYAnchor.constraint(equalTo: centerYAnchor),
             buyButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            buyButton.widthAnchor.constraint(equalToConstant: 191),
+            buyButton.widthAnchor.constraint(lessThanOrEqualToConstant: 191),
             buyButton.heightAnchor.constraint(equalToConstant: 56),
             
         ])

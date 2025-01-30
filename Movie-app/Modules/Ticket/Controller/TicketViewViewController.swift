@@ -9,7 +9,7 @@ import UIKit
 
 class TicketViewViewController: UIViewController {
 
-    let coordinator: MainCoordinator?
+    weak var coordinator: MainCoordinator?
     let viewModel: TicketViewModel
     let appBarView = AppBarView()
     let dottedLineView = DottedLine()
@@ -40,8 +40,7 @@ class TicketViewViewController: UIViewController {
         return imageView
     }()
   
-    init(coordinator: MainCoordinator?, viewModel: TicketViewModel) {
-        self.coordinator = coordinator
+    init(viewModel: TicketViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

@@ -9,9 +9,8 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    private let coordinator: MainCoordinator
-    private let viewModel : HomeViewModel
-
+    weak var coordinator: MainCoordinator?
+    private let viewModel: HomeViewModel
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: getCollectionViewLayout())
         collectionView.showsVerticalScrollIndicator = true
@@ -21,8 +20,7 @@ class HomeViewController: UIViewController {
         return collectionView
     }()
     
-    init(coordinator: MainCoordinator, viewModel: HomeViewModel) {
-        self.coordinator = coordinator
+    init(viewModel: HomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -136,17 +134,17 @@ extension HomeViewController: UICollectionViewDataSource {
 //AllMovie Section Movie Tapped
 extension HomeViewController: NowPlayingMovieCollectionViewCellItemDelegate {
     func movieCollectionViewCellItemDidSelect(cell: NowPlayingMoviesCollectionViewCell, cellItem: NowPlayingMovieSectionCellItem) {
-        coordinator.navigateToDetail(movieDetails: cellItem.item)
+        coordinator?.navigateToDetail(movieDetails: cellItem.item)
     }
 }
 
 extension HomeViewController: UpComingMovieCollectionViewCellItemDelegate {
     func upComingMovieCollectionViewCellItemDidSelect(cell: UpComingMovieCollectionViewCell, cellItem: UpComingMovieSectionCellItem) {
-        coordinator.navigateToDetail(movieDetails: cellItem.item)
+        coordinator?.navigateToDetail(movieDetails: cellItem.item)
     }
 }
 
-extension HomeViewController: MovieHomeControllerViewModelDelegate {
+extension HomeViewController: HomeViewModelDelegate {
     func reloadMovieData() {
         self.collectionView.reloadData()
     }

@@ -9,7 +9,7 @@ import UIKit
 
 class PaymentViewController: UIViewController {
    
-    let coordinator: MainCoordinator?
+    weak var coordinator: MainCoordinator?
     let viewModel: PaymentViewModel
     let appBarView = AppBarView()
     private var timerView = TimerView()
@@ -23,8 +23,7 @@ class PaymentViewController: UIViewController {
         return collectionView
     }()
     
-    init(coordinator: MainCoordinator?, viewModel: PaymentViewModel) {
-        self.coordinator = coordinator
+    init(viewModel: PaymentViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

@@ -15,7 +15,8 @@ class MainCoordinator: Coordinator {
     }
     
     func start() {
-        let viewController = HomeViewController(coordinator: self, viewModel: HomeViewModel())
+        let viewController = HomeViewController(viewModel: HomeViewModel())
+        viewController.coordinator = self
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.setViewControllers([viewController], animated: false)
     }
@@ -25,20 +26,21 @@ class MainCoordinator: Coordinator {
     }
 
     func navigateToDetail(movieDetails: MovieDetails) {
-        let movieDetailsViewController = MovieDetailsViewController(coordinator: self, viewModel: MovieDetailsViewModel(movieDetails: movieDetails))
+        let movieDetailsViewController = MovieDetailsViewController(viewModel: MovieDetailsViewModel(movieDetails: movieDetails))
+        movieDetailsViewController.coordinator = self
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(movieDetailsViewController, animated: true)
     }
     
     func navigateToSelectSeats(movieDetails: MovieDetails, cinemaDetails: Cinema) {
-        let selectSeactViewController = SelectSeatViewController(coordinator: self, viewModel: SelectSeatViewModel(movieDetails: movieDetails, cinemaDetails: cinemaDetails))
+        let selectSeactViewController = SelectSeatViewController(viewModel: SelectSeatViewModel(movieDetails: movieDetails, cinemaDetails: cinemaDetails))
+        selectSeactViewController.coordinator = self
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(selectSeactViewController, animated: true)
     }
  
     func navigateToPayment(movieDetails: MovieDetails, cinemaDetails: Cinema,selectedSeats: [Seat], selectedDate: Session ,selectedTime: SessionTime) {
         let paymentViewController = PaymentViewController(
-            coordinator: self,
             viewModel: PaymentViewModel(
                 movieDetails: movieDetails,
                 cinemaDetails: cinemaDetails,
@@ -47,15 +49,16 @@ class MainCoordinator: Coordinator {
                 selectedTime: selectedTime
             )
         )
+        paymentViewController.coordinator = self
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(paymentViewController, animated: true)
     }
     
     func navigateToTicket(movieDetails: MovieDetails, cinemaDetails: Cinema,selectedSeats: [Seat], selectedDate: Session ,selectedTime: SessionTime) {
         let ticketViewController = TicketViewViewController(
-            coordinator: self,
             viewModel: TicketViewModel(selectedSeats: selectedSeats, movieDetails: movieDetails, cinemaDetails: cinemaDetails, selectedDate: selectedDate, selectedTime: selectedTime)
         )
+        ticketViewController.coordinator = self
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(ticketViewController, animated: true)
     }

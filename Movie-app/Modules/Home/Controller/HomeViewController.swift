@@ -8,8 +8,10 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    weak var coordinator: MainCoordinator?
-    private let viewModel = HomeViewModel()
+    
+    private let coordinator: MainCoordinator
+    private let viewModel : HomeViewModel
+
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: getCollectionViewLayout())
         collectionView.showsVerticalScrollIndicator = true
@@ -42,9 +44,9 @@ class HomeViewController: UIViewController {
             self.viewModel.sections[sectionIndex].layoutSection
         }
     }
-}
 
 extension HomeViewController {
+
     private func configureUI() {
         view.backgroundColor = CustomColors.backgroundColor
         configureCollectionView()
@@ -58,7 +60,12 @@ extension HomeViewController {
                                 withReuseIdentifier: MovieHeaderCollectionReusableView.reuseIdentifier)
         collectionView.register(NowPlayingMoviesCollectionViewCell.self, forCellWithReuseIdentifier: NowPlayingMoviesCollectionViewCell.identifier)
         collectionView.register(LoadingIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: LoadingIndicatorCollectionViewCell.identifier)
+      
         collectionView.register(UpComingMovieCollectionViewCell.self, forCellWithReuseIdentifier: UpComingMovieCollectionViewCell.identifier)
+        collectionView.register(PromoAndDiscountCollectionViewCell.self, forCellWithReuseIdentifier: PromoAndDiscountCollectionViewCell.identifier)
+        collectionView.register(ServicesCollectionViewCell.self, forCellWithReuseIdentifier: ServicesCollectionViewCell.identifier)
+        collectionView.register(MovieNewsCollectionViewCell.self, forCellWithReuseIdentifier: MovieNewsCollectionViewCell.identifier)
+
         collectionView.dataSource = self
         collectionView.delegate = self
         
@@ -76,6 +83,7 @@ extension HomeViewController {
         viewModel.fetchMoviesByCategory(category: .nowPlaying)
         viewModel.fetchMoviesByCategory(category: .upcoming)
     }
+  
 }
 
 // MARK: - UICollectionViewDelegate

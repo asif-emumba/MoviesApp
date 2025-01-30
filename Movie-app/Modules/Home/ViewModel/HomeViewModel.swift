@@ -50,7 +50,7 @@ class HomeViewModel {
             do {
                 switch category {
                     case .nowPlaying:
-                        nowPlayingMovies = try await fetchMoviesAsync(from: .nowPlaying, category: &nowPlayingMovies)
+                        nowPlayingMovies = try await fetchMoviesAsync(from: .nowPlaying)
                     case .upcoming:
                         upcomingMovies = try await fetchMoviesAsync(from: .upcoming)
                 }
@@ -65,6 +65,9 @@ class HomeViewModel {
     // MARK: - Populate Sections
     private func populateSections(with movies: [MovieDetails], upComingMovies: [MovieDetails]) {
         let userGreeting = "Hi, Angelina 👋"
+        let service = Service.mockData
+        let movieNews = MovieNews.mockData
+      
         sections = [
             UserInfoSection(headerTitle: "", items: [UserInfoSectionCellItem(item: userGreeting)]),
             NowPlayingMovieSection(
@@ -74,6 +77,13 @@ class HomeViewModel {
             UpComingMovieSection(
                 headerTitle: "Coming soon",
                 items: upComingMovies.map { UpComingMovieSectionCellItem(item: $0, delegate: upcomingMovieCellDelegate) }
+            ),
+            PromoAndDiscountSection(
+                headerTitle: "Promo & Discount",
+                items: [PromoAndDiscountSectionCellItem()]
+            ),
+            ServiceSection(headerTitle: "Service", items: service.map { ServiceSectionCellItem(item: $0) }),
+            MovieNewsSection(headerTitle: "Movie news", items: movieNews.map { MovieNewsSectionCellItem(item: $0) })
             )
         ]
         delegate?.reloadMovieData()

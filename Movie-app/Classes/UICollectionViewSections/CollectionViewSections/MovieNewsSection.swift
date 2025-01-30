@@ -1,32 +1,30 @@
 //
-//  UpComingMovieSection.swift
+//  MovieNewsSection.swift
 //  Movie-app
 //
-//  Created by Asif-emumba on 21/01/2025.
+//  Created by Asif-emumba on 23/01/2025.
 //
 
 import Foundation
 import UIKit
 
-final class UpComingMovieSection: CollectionViewSection {
+final class MovieNewsSection: CollectionViewSection {
     
     var headerTitle: String?
     var items: [CollectionViewCellItem]
-    
     init(headerTitle: String, items: [CollectionViewCellItem]) {
-        self.headerTitle = headerTitle
         self.items = items
+        self.headerTitle = headerTitle
     }
     
     var layoutSection: NSCollectionLayoutSection {
             // Define the item size for the category buttons
-        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(173),
-                                              heightDimension: .absolute(342))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(239),
+                                              heightDimension: .absolute(206))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
             // Define the group size for the horizontal scrollable category buttons
-        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(200),
-                                               heightDimension: .absolute(342))
-
+        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(700),
+                                               heightDimension: .absolute(206))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             // Define the section and its boundary supplementary items
         let section = NSCollectionLayoutSection(group: group)
@@ -46,5 +44,5 @@ final class UpComingMovieSection: CollectionViewSection {
         }
         return section
     }
-
+    
 }

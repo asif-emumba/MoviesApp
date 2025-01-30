@@ -1,5 +1,5 @@
 //
-//  MovieCollectionViewCell.swift
+//  MovieCell.swift
 //  Movie-app
 //
 //  Created by Asif-emumba on 19/01/2025.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol MovieCollectionViewCellDelegate: AnyObject {
-    func movieCollectionViewCellDidSelect(cell: MovieCollectionViewCell)
+protocol MoviesSectionCellDelegate: AnyObject {
+    func MovieCollectionViewCellDidSelect(cell: MoviesSectionCell)
 }
 
-class MovieCollectionViewCell: UICollectionViewCell {
+class MoviesSectionCell: UICollectionViewCell {
     
-    static let identifier = "MovieCollectionViewCell"
-    weak var delegate: MovieCollectionViewCellDelegate?
+    static let identifier = "MoviesSectionCell"
+    weak var delegate: MoviesSectionCellDelegate?
     
     private let movieName = UILabel.createLabel(with: MovieNameLabelConfiguration())
     private let movieInfoLabel = UILabel.createLabel(with: MovieDurationLabelConfiguration())
@@ -116,7 +116,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func posterImageViewTapped() {
-        delegate?.movieCollectionViewCellDidSelect(cell: self)
+        delegate?.MovieCollectionViewCellDidSelect(cell: self)
     }
 }
 

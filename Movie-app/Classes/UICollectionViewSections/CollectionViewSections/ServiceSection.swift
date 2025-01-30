@@ -1,39 +1,37 @@
 //
-//  UpComingMovieSection.swift
+//  ServiceSection.swift
 //  Movie-app
 //
-//  Created by Asif-emumba on 21/01/2025.
+//  Created by Asif-emumba on 23/01/2025.
 //
 
 import Foundation
 import UIKit
 
-final class UpComingMovieSection: CollectionViewSection {
+final class ServiceSection: CollectionViewSection {
     
     var headerTitle: String?
     var items: [CollectionViewCellItem]
-    
     init(headerTitle: String, items: [CollectionViewCellItem]) {
-        self.headerTitle = headerTitle
         self.items = items
+        self.headerTitle = headerTitle
     }
     
     var layoutSection: NSCollectionLayoutSection {
-            // Define the item size for the category buttons
-        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(173),
-                                              heightDimension: .absolute(342))
+        // Define the item size for the category buttons
+        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute(81),
+                                              heightDimension: .absolute(111))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            // Define the group size for the horizontal scrollable category buttons
-        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(200),
-                                               heightDimension: .absolute(342))
-
+        // Define the group size for the horizontal scrollable category buttons
+        let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(700),
+                                               heightDimension: .absolute(111))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-            // Define the section and its boundary supplementary items
+        // Define the section and its boundary supplementary items
         let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 16
+        section.interGroupSpacing = 25
         section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 16, bottom: 20, trailing: 16)
         section.orthogonalScrollingBehavior = .continuous
-            // Add a header to the section
+        // Add a header to the section
         if headerTitle != nil {
             let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                     heightDimension: .absolute(47))
@@ -46,5 +44,5 @@ final class UpComingMovieSection: CollectionViewSection {
         }
         return section
     }
-
+    
 }

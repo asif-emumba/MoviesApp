@@ -1,17 +1,18 @@
 //
-//  HomeViewController.swift
+//  MovieDetailsViewController.swift
 //  Movie-app
 //
-//  Created by Emumba on 17/01/2025.
+//  Created by Asif-emumba on 24/01/2025.
 //
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class MovieDetailsViewController: UIViewController {
     
     private let coordinator: MainCoordinator
-    private let viewModel : HomeViewModel
-
+    private let viewModel: MovieDetailsViewModel
+    let appBarView = AppBarView()
+    
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: getCollectionViewLayout())
         collectionView.showsVerticalScrollIndicator = true
@@ -20,8 +21,9 @@ class HomeViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
+    private let continueButton = ContinueButtonView()
     
-    init(coordinator: MainCoordinator, viewModel: HomeViewModel) {
+    init(coordinator: MainCoordinator, viewModel: MovieDetailsViewModel) {
         self.coordinator = coordinator
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -33,64 +35,72 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.additionalSafeAreaInsets.top = 0
         configureUI()
         configureCollectionView()
         configureViewModel()
     }
+    
     //func to show section layout//
     private func getCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
             self.viewModel.sections[sectionIndex].layoutSection
         }
     }
-
-}
-
-extension HomeViewController {
+    
     private func configureUI() {
         view.backgroundColor = CustomColors.backgroundColor
+        view.addSubview(appBarView)
+        view.addSubview(collectionView)
+        view.addSubview(continueButton)
+        view.bringSubviewToFront(appBarView)
         configureCollectionView()
     }
-    
+
     private func configureCollectionView() {
-        view.addSubview(collectionView)
-        collectionView.register(UserInfoCollectionViewCell.self, forCellWithReuseIdentifier: UserInfoCollectionViewCell.identifier)
+        collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.register(MovieDetailsCoverCollectionViewCell.self, forCellWithReuseIdentifier: MovieDetailsCoverCollectionViewCell.identifier)
+        collectionView.register(MovieDirectorCollectionViewCell.self, forCellWithReuseIdentifier: MovieDirectorCollectionViewCell.identifier)
+        collectionView.register(MovieActorCollectionViewCell.self, forCellWithReuseIdentifier: MovieActorCollectionViewCell.identifier)
+        collectionView.register(CinemaCollectionViewCell.self, forCellWithReuseIdentifier: CinemaCollectionViewCell.identifier)
         collectionView.register(MovieHeaderCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: MovieHeaderCollectionReusableView.reuseIdentifier)
-        collectionView.register(NowPlayingMoviesCollectionViewCell.self, forCellWithReuseIdentifier: NowPlayingMoviesCollectionViewCell.identifier)
-        collectionView.register(LoadingIndicatorCollectionViewCell.self, forCellWithReuseIdentifier: LoadingIndicatorCollectionViewCell.identifier)
-        collectionView.register(UpComingMovieCollectionViewCell.self, forCellWithReuseIdentifier: UpComingMovieCollectionViewCell.identifier)
-        collectionView.register(PromoAndDiscountCollectionViewCell.self, forCellWithReuseIdentifier: PromoAndDiscountCollectionViewCell.identifier)
-        collectionView.register(ServicesCollectionViewCell.self, forCellWithReuseIdentifier: ServicesCollectionViewCell.identifier)
-        collectionView.register(MovieNewsCollectionViewCell.self, forCellWithReuseIdentifier: MovieNewsCollectionViewCell.identifier)
+        collectionView.register(MovieStoryLineCollectionViewCell.self, forCellWithReuseIdentifier: MovieStoryLineCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         
         NSLayoutConstraint.activate([
+            appBarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            appBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            appBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            appBarView.heightAnchor.constraint(equalToConstant: 48),
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            continueButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 16),
+            continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
+            continueButton.heightAnchor.constraint(equalToConstant: 56)
         ])
     }
     
     private func configureViewModel() {
         viewModel.delegate = self
-        viewModel.movieCellDelegate = self
-        viewModel.upcomingMovieCellDelegate = self
-        viewModel.fetchMoviesByCategory(category: .nowPlaying)
-        viewModel.fetchMoviesByCategory(category: .upcoming)
+        viewModel.cinemaDelegate = self
+        appBarView.delegate = self
+        continueButton.delegate = self
+        viewModel.fetchMovieDetails()
     }
+    
 }
 
 // MARK: - UICollectionViewDelegate
-extension HomeViewController: UICollectionViewDelegate {
+extension MovieDetailsViewController: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDataSource
-extension HomeViewController: UICollectionViewDataSource {
+extension MovieDetailsViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.sections.count
     }
@@ -125,27 +135,35 @@ extension HomeViewController: UICollectionViewDataSource {
         
         let section = viewModel.sections[indexPath.section]
         header.configure(with: section.headerTitle ?? "")
+        
         return header
     }
-
+    
 }
 
-//AllMovie Section Movie Tapped
-extension HomeViewController: NowPlayingMovieCollectionViewCellItemDelegate {
-    func movieCollectionViewCellItemDidSelect(cell: NowPlayingMoviesCollectionViewCell, cellItem: NowPlayingMovieSectionCellItem) {
-        coordinator.navigateToDetail(movieDetails: cellItem.item)
+extension MovieDetailsViewController: MovieDetailsViewModelDelegate {
+    func reloadMovieDetailsData() {
+        collectionView.reloadData()
     }
 }
 
-extension HomeViewController: UpComingMovieCollectionViewCellItemDelegate {
-    func upComingMovieCollectionViewCellItemDidSelect(cell: UpComingMovieCollectionViewCell, cellItem: UpComingMovieSectionCellItem) {
-        coordinator.navigateToDetail(movieDetails: cellItem.item)
-        print("Tapped detected from UpComingMovieCollectionViewCellItemDelegate \(cellItem.item.id) named as \(cellItem.item.title)")
+extension MovieDetailsViewController: CinemaSectionCellItemDelegate {
+    func cinemaCollectionViewCellItemDidSelect(cell: CinemaCollectionViewCell, cellItem: CinemaSectionCellItem) {
+        print("Selected Data is : \(cellItem.item.id)")
+        if let indexPath = collectionView.indexPath(for: cell) {
+            viewModel.updateSelectedCinema(to: indexPath.item)
+        }
     }
 }
 
-extension HomeViewController: MovieHomeControllerViewModelDelegate {
-    func reloadMovieData() {
-        self.collectionView.reloadData()
+extension MovieDetailsViewController: AppBarDelegate {
+    func didTapBackButton() {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+extension MovieDetailsViewController: ContinueButtonViewDelegate {
+    func continueButtonTapped() {
+        print("Tapped from controllers")
     }
 }

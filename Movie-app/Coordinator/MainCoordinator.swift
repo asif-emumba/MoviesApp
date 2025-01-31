@@ -23,7 +23,7 @@ class MainCoordinator: Coordinator {
     func popToRootViewController() {
         navigationController.popViewController(animated: true)
     }
-    
+
     func navigateToDetail(movieDetails: MovieDetails) {
         let movieDetailsViewController = MovieDetailsViewController(coordinator: self, viewModel: MovieDetailsViewModel(movieDetails: movieDetails))
         navigationController.setNavigationBarHidden(true, animated: false)
@@ -35,7 +35,7 @@ class MainCoordinator: Coordinator {
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(selectSeactViewController, animated: true)
     }
-    
+ 
     func navigateToPayment(movieDetails: MovieDetails, cinemaDetails: Cinema,selectedSeats: [Seat], selectedDate: Session ,selectedTime: SessionTime) {
         let paymentViewController = PaymentViewController(
             coordinator: self,
@@ -50,4 +50,5 @@ class MainCoordinator: Coordinator {
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(paymentViewController, animated: true)
     }
+
 }

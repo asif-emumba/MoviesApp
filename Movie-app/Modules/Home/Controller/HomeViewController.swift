@@ -11,6 +11,7 @@ class HomeViewController: UIViewController {
     
     private let coordinator: MainCoordinator
     private let viewModel : HomeViewModel
+
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: getCollectionViewLayout())
         collectionView.showsVerticalScrollIndicator = true
@@ -43,10 +44,11 @@ class HomeViewController: UIViewController {
             self.viewModel.sections[sectionIndex].layoutSection
         }
     }
-    
+   
 }
 
 extension HomeViewController {
+
     private func configureUI() {
         view.backgroundColor = CustomColors.backgroundColor
         configureCollectionView()
@@ -82,6 +84,7 @@ extension HomeViewController {
         viewModel.fetchMoviesByCategory(category: .nowPlaying)
         viewModel.fetchMoviesByCategory(category: .upcoming)
     }
+
 }
 
 // MARK: - UICollectionViewDelegate
@@ -124,7 +127,6 @@ extension HomeViewController: UICollectionViewDataSource {
         
         let section = viewModel.sections[indexPath.section]
         header.configure(with: section.headerTitle ?? "")
-       
         return header
     }
 
@@ -140,14 +142,6 @@ extension HomeViewController: NowPlayingMovieCollectionViewCellItemDelegate {
 extension HomeViewController: UpComingMovieCollectionViewCellItemDelegate {
     func upComingMovieCollectionViewCellItemDidSelect(cell: UpComingMovieCollectionViewCell, cellItem: UpComingMovieSectionCellItem) {
         coordinator.navigateToDetail(movieDetails: cellItem.item)
-        print("Tapped detected from UpComingMovieCollectionViewCellItemDelegate \(cellItem.item.id) named as \(cellItem.item.title)")
-    }
-}
-
-extension HomeViewController: UpComingMovieCollectionViewCellItemDelegate {
-    func upComingMovieCollectionViewCellItemDidSelect(cell: UpComingMovieCollectionViewCell, cellItem: UpComingMovieSectionCellItem) {
-        coordinator.navigateToDetail(movieDetails: cellItem.item)
-        print("Tapped detected from UpComingMovieCollectionViewCellItemDelegate \(cellItem.item.id) named as \(cellItem.item.title)")
     }
 }
 

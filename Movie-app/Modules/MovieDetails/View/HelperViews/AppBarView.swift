@@ -28,12 +28,11 @@ class AppBarView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
+        configureAction()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupView()
-        configureAction()
     }
     
     private func setupView() {
@@ -46,8 +45,8 @@ class AppBarView: UIView {
         NSLayoutConstraint.activate([
             backButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             backButton.centerYAnchor.constraint(equalTo: centerYAnchor),
-            backButton.widthAnchor.constraint(equalToConstant: 48),
-            backButton.heightAnchor.constraint(equalToConstant: 48),
+            backButton.widthAnchor.constraint(equalToConstant: 40),
+            backButton.heightAnchor.constraint(equalToConstant: 40),
             
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),

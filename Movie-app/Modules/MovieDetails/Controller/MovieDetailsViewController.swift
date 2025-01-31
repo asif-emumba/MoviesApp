@@ -149,7 +149,6 @@ extension MovieDetailsViewController: MovieDetailsViewModelDelegate {
 
 extension MovieDetailsViewController: CinemaSectionCellItemDelegate {
     func cinemaCollectionViewCellItemDidSelect(cell: CinemaCollectionViewCell, cellItem: CinemaSectionCellItem) {
-        print("Selected Data is : \(cellItem.item.id)")
         if let indexPath = collectionView.indexPath(for: cell) {
             viewModel.updateSelectedCinema(to: indexPath.item)
         }
@@ -164,6 +163,10 @@ extension MovieDetailsViewController: AppBarDelegate {
 
 extension MovieDetailsViewController: ContinueButtonViewDelegate {
     func continueButtonTapped() {
-        print("Tapped from controllers")
+        let selectedCinema = viewModel.cinemaData.first(where: { $0.isSelected })
+        if selectedCinema == nil {
+            return
+        }
+        coordinator.navigateToSelectSeats(movieDetails: viewModel.movieDetails, cinemaDetails: selectedCinema ?? viewModel.cinemaData.first!)
     }
 }

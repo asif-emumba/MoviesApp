@@ -23,7 +23,7 @@ class MainCoordinator: Coordinator {
     func popToRootViewController() {
         navigationController.popViewController(animated: true)
     }
-    
+
     func navigateToDetail(movieDetails: MovieDetails) {
         let movieDetailsViewController = MovieDetailsViewController(coordinator: self, viewModel: MovieDetailsViewModel(movieDetails: movieDetails))
         navigationController.setNavigationBarHidden(true, animated: false)

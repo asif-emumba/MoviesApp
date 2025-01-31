@@ -67,6 +67,7 @@ class HomeViewModel {
         let userGreeting = "Hi, Angelina 👋"
         let service = Service.mockData
         let movieNews = MovieNews.mockData
+
         sections = [
             UserInfoSection(headerTitle: "", items: [UserInfoSectionCellItem(item: userGreeting)]),
             NowPlayingMovieSection(

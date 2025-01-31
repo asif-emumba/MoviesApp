@@ -116,3 +116,4 @@ struct PriceLabelConfiguration: LabelConfigurable {
     var textAlignment: NSTextAlignment { .left }
     var font: UIFont { .systemFont(ofSize: 24, weight: .bold) }
 }
+

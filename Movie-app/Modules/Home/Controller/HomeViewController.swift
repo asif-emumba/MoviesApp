@@ -47,7 +47,6 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController {
-    
     private func configureUI() {
         view.backgroundColor = CustomColors.backgroundColor
         configureCollectionView()
@@ -83,7 +82,6 @@ extension HomeViewController {
         viewModel.fetchMoviesByCategory(category: .nowPlaying)
         viewModel.fetchMoviesByCategory(category: .upcoming)
     }
-    
 }
 
 // MARK: - UICollectionViewDelegate

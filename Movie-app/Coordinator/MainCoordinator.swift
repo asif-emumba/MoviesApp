@@ -35,4 +35,20 @@ class MainCoordinator: Coordinator {
         navigationController.setNavigationBarHidden(true, animated: false)
         navigationController.pushViewController(selectSeactViewController, animated: true)
     }
+ 
+    func navigateToPayment(movieDetails: MovieDetails, cinemaDetails: Cinema,selectedSeats: [Seat], selectedDate: Session ,selectedTime: SessionTime) {
+        let paymentViewController = PaymentViewController(
+            coordinator: self,
+            viewModel: PaymentViewModel(
+                movieDetails: movieDetails,
+                cinemaDetails: cinemaDetails,
+                selectedSeats: selectedSeats,
+                selectedDate: selectedDate,
+                selectedTime: selectedTime
+            )
+        )
+        navigationController.setNavigationBarHidden(true, animated: false)
+        navigationController.pushViewController(paymentViewController, animated: true)
+    }
+
 }

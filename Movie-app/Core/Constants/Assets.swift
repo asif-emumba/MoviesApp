@@ -25,6 +25,9 @@ enum Assets {
         static let icPlay = UIImage(named: "Ic_play")
         static let icRatingStar = UIImage(named: "Ic_ratingstar")
         static let icBackArrow = UIImage(named: "Ic_arrow_left")
+        static let icClock = UIImage(named: "Ic_clock")
+        static let icDiscount = UIImage(named: "Ic_discount")
+        static let icForwordArrow = UIImage(named: "Ic_arrow_right")
     }
     
     enum Movie {
@@ -33,11 +36,11 @@ enum Assets {
     }
     
     enum Payment {
-        static let icPayment1 = UIImage(named: "Ic_payment1")
-        static let icPayment2 = UIImage(named: "Ic_payment2")
-        static let icPayment3 = UIImage(named: "Ic_payment3")
-        static let icPayment4 = UIImage(named: "Ic_payment4")
-        static let icPayment5 = UIImage(named: "Ic_payment5")
+        static let icPayment1 = "Ic_payment1"
+        static let icPayment2 = "Ic_payment2"
+        static let icPayment3 = "Ic_payment3"
+        static let icPayment4 = "Ic_payment4"
+        static let icPayment5 = "Ic_payment5"
     }
     
     enum Services {

@@ -9,7 +9,7 @@ import UIKit
 
 class MovieDetailsViewController: UIViewController {
     
-    private let coordinator: MainCoordinator
+    weak var coordinator: MainCoordinator?
     private let viewModel: MovieDetailsViewModel
     let appBarView = AppBarView()
     
@@ -23,8 +23,7 @@ class MovieDetailsViewController: UIViewController {
     }()
     private let continueButton = ContinueButtonView()
     
-    init(coordinator: MainCoordinator, viewModel: MovieDetailsViewModel) {
-        self.coordinator = coordinator
+    init(viewModel: MovieDetailsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -167,6 +166,6 @@ extension MovieDetailsViewController: ContinueButtonViewDelegate {
         if selectedCinema == nil {
             return
         }
-        coordinator.navigateToSelectSeats(movieDetails: viewModel.movieDetails, cinemaDetails: selectedCinema ?? viewModel.cinemaData.first!)
+        coordinator?.navigateToSelectSeats(movieDetails: viewModel.movieDetails, cinemaDetails: selectedCinema ?? viewModel.cinemaData.first!)
     }
 }

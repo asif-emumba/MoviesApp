@@ -10,7 +10,7 @@ import Foundation
 class NetworkManager {
     
     static let shared = NetworkManager()
-    //generic funtion for api call//
+    // Generic funtion for api call//
     func apiRequest<T: DataRequest>(
         _ request: T
     ) async throws -> T.Response {

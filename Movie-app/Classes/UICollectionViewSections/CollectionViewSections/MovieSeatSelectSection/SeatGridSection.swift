@@ -19,17 +19,17 @@ final class SeatGridSection: CollectionViewSection {
     }
     
     var layoutSection: NSCollectionLayoutSection {
-            // Define item size for each seat
+        // Define item size for each seat
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .absolute(28),
             heightDimension: .absolute(28)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-            // Set spacing between items
+        // Set spacing between items
         item.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 4, bottom: 4, trailing: 4)
         
-            // Group items into rows (row-wise grouping)
+        // Group items into rows (row-wise grouping)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .absolute(28)
@@ -37,10 +37,10 @@ final class SeatGridSection: CollectionViewSection {
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
             subitem: item,
-            count: 12 // Number of seats per row (columns)
+            count: 12
         )
         
-            // Set section configuration
+        // Set section configuration
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 8 // Space between rows
         section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 0, bottom: 10, trailing: 0)

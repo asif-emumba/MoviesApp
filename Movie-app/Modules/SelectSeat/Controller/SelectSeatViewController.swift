@@ -9,7 +9,7 @@ import UIKit
 
 class SelectSeatViewController: UIViewController {
     
-    private let coordinator: MainCoordinator
+    weak var coordinator: MainCoordinator?
     private let viewModel: SelectSeatViewModel
     let gradientBorderView = GradientTopBorderView()
     let appBarView = AppBarView()
@@ -23,8 +23,7 @@ class SelectSeatViewController: UIViewController {
         return collectionView
     }()
     
-    init(coordinator: MainCoordinator, viewModel: SelectSeatViewModel) {
-        self.coordinator = coordinator
+    init(viewModel: SelectSeatViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -157,7 +156,7 @@ extension SelectSeatViewController: UICollectionViewDataSource {
     
 }
 
-extension SelectSeatViewController: SeatGridViewModelDelegate {
+extension SelectSeatViewController: SelectSeatViewModelDelegate {
     func reloadSeatData() {
         self.collectionView.reloadData()
     }
@@ -165,7 +164,7 @@ extension SelectSeatViewController: SeatGridViewModelDelegate {
 
 extension SelectSeatViewController: AppBarDelegate {
     func didTapBackButton() {
-        coordinator.popToRootViewController()
+        coordinator?.popToRootViewController()
     }
 }
 
@@ -202,6 +201,6 @@ extension SelectSeatViewController: BuyTimeTicketDelegate {
         if selectedDate == nil || selectedTime == nil {
             return
         }
-        coordinator.navigateToPayment(movieDetails: viewModel.movieDetails, cinemaDetails: selectedCinema, selectedSeats: viewModel.selectedSeats, selectedDate: selectedDate!, selectedTime: selectedTime!)
+        coordinator?.navigateToPayment(movieDetails: viewModel.movieDetails, cinemaDetails: selectedCinema, selectedSeats: viewModel.selectedSeats, selectedDate: selectedDate!, selectedTime: selectedTime!)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SeatGridViewModelDelegate: AnyObject {
+protocol SelectSeatViewModelDelegate: AnyObject {
     func reloadSeatData()
 }
 
@@ -21,7 +21,7 @@ class SelectSeatViewModel {
     var sessionDays: [Session] = []
     var sessionTime: [SessionTime] = []
     
-    weak var delegate: SeatGridViewModelDelegate?
+    weak var delegate: SelectSeatViewModelDelegate?
     weak var seatCellDelegate: SeatCollectionViewCellItemDelegate?
     weak var dateDelegate: DateSectionCellItemDelegate?
     weak var timeDelegate: TimeSectionCellItemDelegate?

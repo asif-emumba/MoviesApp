@@ -19,10 +19,12 @@ class MovieDetailsCardView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    let starViews: UIView = {
-       let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    let starViews: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 12
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
     }()
     let ratingStartImageView = StarRatingView(frame: .zero)
 
@@ -63,12 +65,14 @@ class MovieDetailsCardView: UIView {
         ratingView.addSubview(movieReviewLabel)
         ratingView.addSubview(starIcon)
         ratingView.addSubview(ratingLabel)
-        starViews.addSubview(ratingStartImageView)
-        starViews.addSubview(watchTrailerButton)
+        starViews.addArrangedSubview(ratingStartImageView)
+        starViews.addArrangedSubview(watchTrailerButton)
         setupConstraints()
     }
     
     private func setupConstraints() {
+        ratingStartImageView.setContentCompressionResistancePriority(.required, for: .horizontal)
+        watchTrailerButton.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
         NSLayoutConstraint.activate([
             movieTitleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             movieTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
@@ -100,15 +104,12 @@ class MovieDetailsCardView: UIView {
             starViews.topAnchor.constraint(equalTo: ratingView.bottomAnchor, constant: 12),
             starViews.heightAnchor.constraint(equalToConstant: 34),
             // rating stars
-            ratingStartImageView.topAnchor.constraint(equalTo: starViews.topAnchor),
             ratingStartImageView.leadingAnchor.constraint(equalTo: starViews.leadingAnchor),
-            ratingStartImageView.bottomAnchor.constraint(equalTo: starViews.bottomAnchor),
-            // trailer button
-            watchTrailerButton.topAnchor.constraint(equalTo: starViews.topAnchor),
-            watchTrailerButton.leadingAnchor.constraint(equalTo: ratingStartImageView.trailingAnchor, constant: 28),
+            ratingStartImageView.centerYAnchor.constraint(equalTo: starViews.centerYAnchor),
+            
             watchTrailerButton.trailingAnchor.constraint(equalTo: starViews.trailingAnchor),
-            watchTrailerButton.bottomAnchor.constraint(equalTo: starViews.bottomAnchor),
-            watchTrailerButton.widthAnchor.constraint(equalToConstant: 110),
+            watchTrailerButton.centerYAnchor.constraint(equalTo: starViews.centerYAnchor),
+            watchTrailerButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 110)
         ])
     }
     
@@ -123,6 +124,7 @@ class MovieDetailsCardView: UIView {
         movieInfoLabel.text = "\(formattedRuntime) • \(releaseDateString)"
         movieReviewLabel.text = "Review"
         ratingLabel.text = String(format: "%.1f", movieDetails.voteAverage)
+        ratingStartImageView.setRating(Int(movieDetails.voteAverage))
     }
     
 }

@@ -28,30 +28,30 @@ extension DataRequest where Response: Decodable {
 }
 
 extension DataRequest {
-    // return base url of api
+    // Return base url of api
     var baseURL: String {
         return APIConstants.apiBaseUrl
     }
-   // returns query parameters of url if there is any
+   // Returns query parameters of url if there is any
     var queryItems: [String: String] {
         return [:]
     }
-    // request header
+    // Request header
     var headers: [String: String] {
         return [
             "Content-Type": "application/json",
             "Accept": "application/json"
         ]
     }
-    // request body only for post or put requests
+    // Request body only for post or put requests
     var body: [String: Any]? {
         return nil
     }
-    // returns api key
+    // Returns api key
     var apiKey: String {
         return APIConstants.apiKey
     }
-    // making url for request
+    // Making url for request
     var url: URL? {
         var components = URLComponents(string: baseURL)
         components?.path = path
@@ -64,7 +64,7 @@ extension DataRequest {
         }
         return components?.url
     }
-    // creating a request
+    // Creating a request
     func createURLRequest() throws -> URLRequest {
         guard let url = url else {
             throw NetworkError.invalidURL

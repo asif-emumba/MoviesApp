@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol MovieHomeControllerViewModelDelegate: AnyObject {
+protocol HomeViewModelDelegate: AnyObject {
     func reloadMovieData()
 }
 
@@ -16,7 +16,7 @@ class HomeViewModel {
     var nowPlayingMovies: [MovieDetails] = []
     var upcomingMovies: [MovieDetails] = []
     
-    weak var delegate: MovieHomeControllerViewModelDelegate?
+    weak var delegate: HomeViewModelDelegate?
     weak var movieCellDelegate: NowPlayingMovieCollectionViewCellItemDelegate?
     weak var upcomingMovieCellDelegate: UpComingMovieCollectionViewCellItemDelegate?
     
